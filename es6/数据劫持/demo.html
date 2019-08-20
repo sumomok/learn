@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text">
+    <div id="show"></div>
+    <script>
+        var oDiv = document.getElementsByTagName('div')[0];
+        var oInput = document.getElementsByTagName('input')[0];
+        var obj = {
+            name:'demo',
+            value:'test',
+        }
+        // 监控input的输入事件
+        oInput.oninput=function(){
+            obj.name = this.value
+        }
+        //使得div的innerhtml可以跟随obj.name一起更新
+        function update(){
+            oDiv.innerHTML = obj.name;
+        }
+        // 判断是否为对象并且为之后可以进行递归操作打下基础
+        function Observer(obj){
+            console.log(typeof obj);
+            if(!obj || typeof obj !='object'){
+                return;
+            }
+            console.log(obj);
+            // for(prop in obj){
+
+            // }
+            // keys(obj) 可以将对象中的所有属性遍历出来放到数组中
+            Object.keys(obj).forEach(key=>defineRec(obj,key,obj[key]));
+        }
+        Observer(obj)
+        // 定义一个obj所有键值对发生改变的监听
+        function  defineRec(obj,key,val) {
+            //进行深层次的递归，将对象上所有的属性都赋予相同的变化。
+            Observer(val);
+            Object.defineProperty(obj,key,{
+                get(){
+                    return val;
+                },
+                set(a){
+                    if(a == val){
+                        return;
+                    }
+                    val = a;
+                    update()
+                }
+            })
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class demo {
+            static a = function (){
+                return 'a'
+            }
+            constructor
+        }
+        // console.log(demo.prototype);
+        // var test = new demo()
+        // console.log(test);
+        var Plean = (function () {
+            function Plean(name) {
+                this.name  = name || '普通飞机',
+                this.bloon = 100,
+                check(this, Plean);
+            }
+            _createClass(Plean,[
+                {
+                    key:'fly',
+                    value : function(){
+                        console.log('fly')
+                    }
+                }
+            ],[
+                {
+                    key:'alive',
+                    value:function(){
+                        return true;
+                    }
+                }
+            ])
+            return Plean;
+        })()
+        function check(_this, _fun) {
+            if (!(_this instanceof _fun)) {
+                // console.log(_this,_fun);
+                throw '语法错误：请通过new的方式来创建函数'
+            }
+        }
+        function _createClass(_constructor, _prototype, _staicProperties) {
+            if (_prototype) {
+                _defineproperties(_constructor.prototype, _prototype)
+            }
+            if (_staicProperties) {
+                _defineproperties(_constructor, _staicProperties)
+            }
+        }
+        function _defineproperties(target, props) {
+            props.forEach(function(ele){
+                Object.defineProperty(target,ele.key,{
+                    value:ele.value,
+                    writable:true,
+                    configurable:true,
+                    enumerable:true,
+                })
+            })
+        }
+        var op = new Plean();
+        // Plean();
+    </script>
+</body>
+
+</html>
