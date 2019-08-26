@@ -20,8 +20,8 @@ var folder = {
 }
 function js() {
     return src(folder.src + 'js/*.js')
-        .pipe(GulpDebug())
-        .pipe(uglify())
+        // .pipe(GulpDebug())
+        // .pipe(uglify())
         .pipe(dest(folder.dist + 'js/'))
         .pipe(GulpServer.reload());
 }

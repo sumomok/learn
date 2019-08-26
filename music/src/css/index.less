@@ -13,6 +13,8 @@
         width:100%;
         height:100%;
         overflow: hidden;
+        background-repeat:no-repeat;
+        background-size: 100% 100%;
     }
 }
 .wrapper{
@@ -49,32 +51,69 @@
         height:200px;
         text-align: center;
         color: #fff;
+        div {
+            margin-top: 20px; 
+        }
         .song-name{
             font-size:30px;
         }
     }
     .pro{
-        width:100%;
-        height:100px;
-        margin: 0 30px;
-        vertical-align: middle;
-        .cur-timer{
-            display: inline-block;
-            width:21px;
-            height:20px;
-            vertical-align: middle;
+        display:flex;
+        .cur-timer,
+        .all-time{
+            width:60px;
+            height:40px;
+            color: #fff;
+            // border:1px solid #ccc;
+            text-align: center;
+            line-height: 40px;
         }
         .pro-wrapper{
-            display: inline-block;
-            width:240px;
-            height:20px;
-            vertical-align: middle;
+            flex:1;
+            // border:1px solid #ccc;
         }
-        .all-time{
-            display: inline-block;
-            width:21px;
-            height:20px;
-            vertical-align: middle;
+
+    }
+
+    .control{
+        // box-sizing: border-box;
+        width:100%;
+        height:60px;
+        position: absolute;
+        bottom:0;
+        background:rgba(0,0,0,0.9);
+        display: flex;
+        .btn{
+            flex:1px;
+            width:20%;
+            height:100%;
+            // border: 1px solid #ccc;
+            background-repeat: no-repeat;
+            background-size: 20px;
+            background-position: center center;
+        }
+        .like{
+            background-image:url(../img/icon-like.png);
+            &.likeing{
+                background-image:url(../img/icon-like-solid.png);
+            }
+        }
+        .list{
+            background-image:url(../img/icon-list.png);
+        }
+        .prev{
+            background-image:url(../img/icon-prev.png);
+        }
+        .play{
+            background-image:url(../img/icon-play.png);
+            &.playing{
+                background-image:url(../img/icon-pause.png);
+ 
+            }
+        }
+        .next{
+            background-image:url(../img/icon-next.png);
         }
     }
 }
