@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./myPromise.js"></script>
+    <script>
+        // let op = new MyPromise(function(res,rej){
+        //     res('1');
+        // })
+        // op.then((val)=>{
+        //     console.log('1');
+        //     throw new Error('test')
+        // }).catch((e)=>{
+        //     console.log(e);
+        // })
+        // let op = new MyPromise(function (res, rej) {
+        //     // let random = Math.random() * 100;
+        //     // if(random > 50) {
+        //     //     res();
+        //     // } else {
+        //     //     rej()
+        //     res('1')
+        // });
+        // // op.then((val) => {
+        // //     return new MyPromise((res, rej) => {
+        // //         res('promise')
+        // //     }
+        // //     )
+        // //     }).then((val) => {
+        // //         console.log(val + 'ok2')
+        // //     }, (val) => {
+        // //         console.log(val + 'no2')
+        // //     })
+        // // console.log('2');
+        // function test(delpy, value) {
+        //     return new MyPromise((res, rej) => {
+        //         setTimeout(function () {
+        //             rej('yes' + value);
+        //         }, delpy)
+        //     });
+        // }
+        // Promise.all([test(200,'a'),test(100,'b'),test(300,'c')]).then((val)=>{
+        //     console.log(val);
+        // },(val)=>{
+        //     console.log(val);
+        // })
+
+        let obj = {
+            'name': 'duyi',
+            'age': 10,
+            [Symbol.iterator]: function (){
+               return test ()
+            }
+        }
+        function * test () {
+            for(let demo in obj ) {
+                yield [demo,obj[demo]];
+            }
+        }
+        for(let p of obj){
+            console.log(p);
+        }
+    </script>
+</body>
+
+</html>
