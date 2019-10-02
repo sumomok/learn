@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        /* [v-cloak] {
+        display: none;
+    } */
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-pre:判断是否用vue处理，有则直接跳过编译 -->
+        <!-- v-once: 只渲染一次，改变vueobj上的属性时不再重新渲染-->
+        <!-- v-cloak:解决未加载vue时，用户体验差的问题 -->
+        <!-- v-if v-else-if v-else   -->
+        <!-- v-html v-text v-show:同jQuery的 -->
+        <!-- <template v-if='age >= 19'>
+            <div>
+                {{name}}
+            </div>
+        </template>
+        <template v-else>
+            {{age}}
+        </template> -->
+
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'test',
+                age:18,
+                flag:true,
+            }
+        })
+    </script>
+</body>
+
+</html>

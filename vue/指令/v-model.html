@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <button v-on:click='test'>test</button> -->
+        <!-- <button @click='test'>test</button> -->
+        <!-- v-model.lazy='content'  当离开输入框时触发重新渲染 -->
+        <!-- v-model.number 将输入的字符串转换为数字(若字符串无法转换为数字 则不获取) -->
+        <label for="task">任务</label>
+        <input type="text" id='task' v-model.number='content' @keydown="addTask($event,'click')">
+        <h4>{{content}}</h4>
+        <button @click="addTask($event,'down')">添加</button>
+        <ul>
+            <li v-for='(item,index) in contentArr' :key='index'>
+                {{item}}
+                <button @click='deleteTask(index)' :_key='index'>删除</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                content: '',
+                contentArr: [],
+            },
+            methods: {
+                addTask(e, type) {
+                    if (e.keyCode != 13 && type != 'down') {
+                        return;
+                    }
+                    this.contentArr.push(this.content);
+                    this.content = '';
+                },
+                deleteTask(index) {
+                    this.contentArr.splice(index, 1)
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>
