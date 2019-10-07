@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-content :content='content' :title='title'></my-content>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            // data: {
+            //     // title: '我是一个标题',
+            //     // content: '我是一个内容',
+            // },
+            provide:{
+                title: '我是一个标题',
+                content: '我是一个内容',
+            },
+            components: {
+                MyContent: {
+                    inject:['title'],
+                    // props: [''],
+                    template: `<div>
+                                <h1 class="title">{{title}}</h1>
+                                <new-p v-bind='this.$attrs'></new-p>
+                            </div>`,
+                    created() {
+                        // console.log(this.$attrs);
+                        // this.title = this.$parent.title
+                    },
+                    inheritAttrs: false,
+                    components: {
+                        newP: {
+                            inject:['content'],
+                            // props: [],
+                            template: `<p>{{content}}</p>`,
+                            created() {
+                                // console.log(this.$parent);
+                                // this.content = this.$parent.$parent.content;
+                            },
+                        },
+
+                    },
+                },
+            },
+        })
+    </script>
+</body>
+
+</html>

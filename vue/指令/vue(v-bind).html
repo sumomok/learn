@@ -13,6 +13,7 @@
         <div :id="test"></div>
         <div :style="{backgroundColor:color,width:width,height:height}"></div>
         <div :_key='`test3`'></div>
+        <button @click = 'click'></button>
     </div>
     <script>
         const vm = new Vue({
@@ -24,7 +25,12 @@
                 color:'red',
                 width:'200px',
                 height:'200px'
-            }
+            },
+            methods: {
+                click() {
+                    alert('test');
+                }
+            },
         })
     </script>
 </body>

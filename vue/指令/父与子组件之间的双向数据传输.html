@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{content}}</p>
+        <!-- <p>{{test}}</p> -->
+        <hr />
+        <!-- <my-content :val='content' @update:input ='handleInput'></my-content> -->
+        <!-- <my-content v-model='content'></my-content> -->
+        <my-content :value.sync='content'></my-content>
+    </div>
+    <script>
+        Vue.component('myContent', {
+            // :value.sync='变量名'  是 :value='变量名' 和 @update:value='由vue固定的事件处理函数'组成的语法糖  其中只有变量名可变 其余都不可变
+            props: ['value'],
+            mounted() {
+                // console.log(this.content);
+                setInterval(()=>{
+                    // this.content ++ ;
+                    let val = this.value + 1 ;
+                    this.$emit ('update:value',val);
+                },1000)
+            },
+            template: `<div>{{ value }}</div>`,
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                content: 100
+            },
+            methods: {
+                handleInput(val) {
+                    this.content = val;
+                }
+            },
+        })
+
+        // Vue.component('myContent', {
+        //     // v-model  == :value = 'content' + @input='handleInput'
+        //     // 且 props中的变量名不能改为其他的 只能用value   事件名也不允许改变  事件处理函数为vue自己内部定义 与你定义的无关
+        //     props: ['value'],
+        //     mounted() {
+        //         console.log(this);
+        //         // console.log(this.content);
+        //         setInterval(()=>{
+        //             // this.content ++ ;
+        //             let val = this.value + 1 ;
+        //             this.$emit ('input',val);
+        //         },1000)
+        //     },
+        //     template: `<div>{{ value }}</div>`,
+        // })
+        // const vm = new Vue({
+        //     el: '#app',
+        //     data: {
+        //         content: 100,
+        //         test:0,
+        //     },
+        //     methods: {
+        //         // demo(val) {
+        //         //     this.test = val;
+        //         // },
+        //         // test111(val){
+        //         //     console.log(this.content);
+
+        //         // },
+
+        //     },
+        // })
+
+        // const vm = new Vue({
+        //     el: '#app',
+        //     data: {
+        //         content: 100
+        //     },
+        //     methods: {
+        //         handleInput( val) {
+        //             this.content = val;
+        //         }
+        //     },
+        //     components: {
+        //         myContent: {
+        //             props: ['val'],
+        //             mounted() {
+        //                 // console.log(this.content);
+        //                 setInterval(()=>{
+        //                     // this.content ++ ;
+        //                     let val = this.val + 1 ;
+        //                     this.$emit ('input',val);
+        //                 },1000)
+        //             },
+        //             template: `<div>{{ val }}</div>`,
+        //         },
+
+        //     },
+        // })
+    </script>
+</body>
+
+</html>

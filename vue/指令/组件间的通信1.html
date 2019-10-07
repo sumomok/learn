@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app" ref='dom'>
+        <my-content  @click='demo'></my-content>
+    </div>
+    <script>
+        const vm =  new Vue({
+            el:'#app',
+            methods: {
+                demo(data) {
+                    console.log(data)
+                }
+            },
+            components: {
+                MyContent:{
+                    props:['demo'],
+                    template:`<div>
+                                <h1></h1>
+                                <button @click='fun'>点击</button>
+                                <new-content></new-content>
+                            </div>`,
+                    data (){
+                        return {
+                            msg:'hello world',
+                        }
+                    },
+                    methods: {
+                        fun() {
+                            // this.$parent.demo(this.msg)
+                            // this.$listeners.click(this.msg);
+                            // this.$emit('click',this.msg)
+
+                            console.log(this.$refs);
+                        }
+                    },
+                    components: {
+                        newContent:{
+                            template:`<p></p>`
+                        },
+                    },
+                },
+            },
+        })
+    </script>
+</body>
+</html>

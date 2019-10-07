@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+    <style>
+            * {
+              margin: 0;
+              padding: 0;
+              list-style: none;
+            }
+        
+            .news-list {
+              margin: 100px;
+              width: 300px;
+              border: 1px solid #000;
+              padding: 20px;
+            }
+        
+            .search-title {
+              font-size: 14px;
+              line-height: 1.29;
+              font-weight: 700;
+            }
+        
+            .news {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-top: 10px;
+              font-size: 13px;
+            }
+        
+            .content {
+              display: flex;
+              align-items: center;
+            }
+        
+            .ranking {
+              padding: 1px 0;
+              color: #fff;
+              width: 14px;
+              height: 14px;
+              line-height: 14px;
+              font-size: 12px;
+              text-align: center;
+              background-color: #8eb9f5;
+              margin-right: 3px;
+            }
+        
+            .ranking.hot1 {
+              background-color: #f54545;
+            }
+        
+            .ranking.hot2 {
+              background-color: #ff8547;
+            }
+        
+            .ranking.hot3 {
+              background-color: #ffac38;
+            }
+        
+            .title {
+              text-align: left;
+              color: #00c;
+            }
+        
+            .title:hover {
+              text-decoration: underline;
+            }
+        
+            .index {
+              color: #333;
+            }
+        
+          </style>
+</head>
+
+<body>
+    <div id="app">
+            <new-list :news-list="newsList"></new-list>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                newsList: [
+                    {
+                        title: '周冬雨被爆恋情',
+                        index: '1235万',
+                        id: 0
+                    },
+                    {
+                        title: '赵立新注销微博',
+                        index: '1140万',
+                        id: 1
+                    },
+                    {
+                        title: '凉山冕宁发生火灾',
+                        index: '1053万',
+                        id: 2
+                    },
+                    {
+                        title: '字母哥帽恩比德',
+                        index: '996万',
+                        id: 3
+                    },
+                    {
+                        title: '曝紫辉创投CEO骗婚',
+                        index: '987万',
+                        id: 4
+                    },
+                    {
+                        title: '南京2.8级地震',
+                        index: '789万',
+                        id: 5
+                    },
+                    {
+                        title: '韩国发生森林大火',
+                        index: '759万',
+                        id: 6
+                    },
+                    {
+                        title: '消防收神秘礼物',
+                        index: '711万',
+                        id: 7
+                    }
+                ]
+            },
+            components: {
+                newList: {
+                    props:['newsList'],
+                    template:`<ul class="news-list">
+                                <h3 class="search-title">搜索热点</h3>
+                                <news v-for='item in newsList' :title="item.title" :index='item.index' :listId = 'item.id' :key='item.id'></news>
+                            </ul>`,
+                    components: {
+                        news: {
+                            props:['title','index','listId'],
+                            data(){
+                                return {
+                                    hot:'hot' + (this.listId + 1),
+                                }
+                            },
+                            template:`<li class='news'>
+                                        <div class='content'>
+                                            <div class='ranking' :class='hot'>{{ listId + 1 }}</div>
+                                            <div class='title'>{{ title }}</div>
+                                        </div>
+                                        <div class='index'>{{ index }}</div>
+                                    </li>`
+                        },
+                    },
+                },
+            },
+        })
+        // Vue.component('test-content',{
+        //     data () {
+        //         return{
+        //             str:'hello world!!'
+        //         }
+        //     },
+        //     template:`<div>{{str}}</div>`
+        // })
+        // const vm = new Vue({
+        //     el: '#app',
+        //     components: {
+        //         MyContent: {
+        //             props:{
+        //                 str:{
+        //                     type:String,
+        //                     default:'11111111',
+        //                 },
+        //                 arr:{
+        //                     type:Array,
+        //                     required:true,
+        //                     default:()=>[1,2,3]
+        //                 }
+        //             },
+        //             template: `<div> {{ str }} {{ arr }} </div>`,
+        //         },
+
+        //     },
+        //     data:{
+        //         arr:[5,6,7],
+        //     }
+        // })
+    </script>
+</body>
+
+</html>

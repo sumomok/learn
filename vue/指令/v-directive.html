@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-slice:9.number='content'>
+        <h4>{{content}}</h4>
+    </div>
+    <script>
+        Vue.directive('slice', {
+            bind(el, binding, vnode) {
+                console.log(binding);
+                let isNumber = binding.modifiers.number
+                let initVal = vnode.context[binding.expression].slice(0,length);
+                if(isNumber){
+                    initVal = vnode.context[binding.expression].replace(/[^0-9]/g,'').slice(0,length);
+                } 
+                var length = binding.arg
+                el.value = initVal;
+                el.oninput= () => {
+                    if(isNumber) {
+                        el.value = el.value.replace(/[^0-9]/g,'');
+                    }
+                    vnode.context[binding.expression] = el.value.slice(0,length);
+                    el.value = el.value.slice(0,length);
+                }
+            },
+            update(el, binding, vnode) {
+                var length = binding.arg                
+                el.value = vnode.context[binding.expression].slice(0,length);
+            },
+            inserted(el, binding, vnode) {
+                console.log('inserted');
+            },
+        });
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                content: 'test',
+            }
+        })    
+    </script>
+</body>
+
+</html>

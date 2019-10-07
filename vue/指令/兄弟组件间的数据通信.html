@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <my-content></my-content>
+        <my-input></my-input>
+        
+    </div>
+    <script>
+        Vue.prototype.bus = new Vue();
+        const vm = new Vue({
+            el:'#app',
+            components: {
+                MyContent:{
+                    // props:['demo'],
+                    data(){
+                        return {
+                            demo:''
+                        }
+                    },
+                    template:`<h1>{{demo}}</h1>`,
+                    mounted () {
+                        // $on 触发事件
+                        this.bus.$on('value',value=>{
+                            this.demo = value;
+                        })
+                    },
+                },
+                myInput:{
+                    data () {
+                        return {
+                            content:''
+                        }
+                    },
+                    template:`
+                            <div class="input">
+                                <input type="text" v-model='content'>
+                                <button @click='hadleInput'>点击</button>
+                            </div>`,
+                    methods: {
+                        hadleInput() {
+                            // console.log(this.content);
+                            //emit 注册事件
+                            this.bus.$emit('value',this.content);
+                        }
+                    },
+                }
+            },
+        })
+    </script>
+</body>
+</html>
