@@ -16,7 +16,8 @@
           :key="item"
           :class="{
             'now-day' : `${year}-${month}-${item-beginDay}` == curDate,
-        }" 
+            'active-day' : `${year}-${month}-${item-beginDay}` == `${year}-${month}-${day}`
+        }"
           :data-day="item - beginDay"
           @click="handleChooseDay"
         >
@@ -52,19 +53,33 @@ export default {
       this.curDate = `${this.year}-${this.month}-${this.day}`;
     },
     handlePrevMonth() {
-      this.month - 1;
+      this.month -= 1;
+      if (this.month == 0) {
+        this.month = 12;
+        this.year -= 1;
+      }
+      if (this.nextMonthDay.toString() == this.day) {
+        this.day = '' +  this.curDay;
+      }
     },
     handleNextMonth() {
-      this.month + 1;
+      this.month += 1;
+      if (this.month == 13) {
+        this.month = 1;
+        this.year += 1;
+      }
+      if (this.otherMonthDay.toString() == this.day) {
+        this.day = '' +  this.curDay;
+      }
+      // console.log(this.curDay ,this.otherMonthDay,this.day);
     },
-    handleChooseDay(e){
-        this.day = e.currentTarget.dataset.day;
-        
+    handleChooseDay(e) {
+      this.day = e.currentTarget.dataset.day;
     }
   },
   created() {
     this.getInitTime();
-    console.log(this.curDate);
+    // console.log(this.curDate);
   },
   computed: {
     beginDay() {
@@ -75,6 +90,9 @@ export default {
     },
     otherMonthDay() {
       return new Date(this.year, this.month - 1, 0).getDate();
+    },
+    nextMonthDay() {
+      return new Date(this.year, this.month + 1, 0).getDate();
     }
   }
 };
@@ -148,5 +166,6 @@ export default {
   color: #007fff;
   border: 2px solid #007fff;
   line-height: 46px;
+  box-sizing: border-box;
 }
 </style>
