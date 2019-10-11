@@ -1,5 +1,5 @@
 <template>
-  <calendar></calendar>
+  <calendar id='app'></calendar>
 </template>
 
 <script>

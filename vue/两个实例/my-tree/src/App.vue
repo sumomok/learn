@@ -1,28 +1,84 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <tree :tree-data='treeData'></tree>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import tree from "./components/tree";
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    HelloWorld
+    tree
+  },
+  data() {
+    return{
+          treeData: [
+      {
+        name: "一级 1",
+        children: [
+          {
+            name: "二级 1-1",
+            children: [
+              {
+                name: "三级 1-1-1",
+                children: [
+                  {
+                    name: "四级 1-1-1-1"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: "一级 2",
+        children: [
+          {
+            name: "二级 2-1",
+            children: [
+              {
+                name: "三级 2-1-1"
+              }
+            ]
+          },
+          {
+            name: "二级 2-2",
+            children: [
+              {
+                name: "三级 2-2-1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: "一级 3",
+        children: [
+          {
+            name: "二级 3-1",
+            children: [
+              {
+                name: "三级 3-1-1"
+              }
+            ]
+          },
+          {
+            name: "二级 3-2",
+            children: [
+              {
+                name: "三级 3-1-1"
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
-}
+
+    }} 
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
