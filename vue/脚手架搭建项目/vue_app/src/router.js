@@ -16,6 +16,11 @@ export default new Router({
   // 定义路由 
   routes:[
     {
+      path:'/login',
+      name:'login',
+      component:()=>import('./views/login'),
+    },
+    {
       // home组件可以不用写路径 ↓
       path:'/home',
       // 组件名字
@@ -34,10 +39,16 @@ export default new Router({
     },{
       path:'/Student',
       name:'Student',
+      meta:{
+        login:true,
+      },
       component:()=>import('./views/Student')
     },{
       path:'/Community',
       name:'Community',
+      meta:{
+        login:true,
+      },
       component:()=>import('./views/Community'),
       redirect:'/Community/academic',
       children:[
