@@ -16,3 +16,9 @@ export default {
   }
 }
 </script>
+<style lang="less">
+ @import '../assets/styles/test.less';
+ div{
+   color:@color;
+ }
+</style>

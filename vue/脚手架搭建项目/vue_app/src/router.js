@@ -35,7 +35,7 @@ export default new Router({
     },{
       path:'/About',
       name:'About',
-      component:()=>import('./views/About')
+      component:()=>import('_v/About')
     },{
       path:'/Student',
       name:'Student',
