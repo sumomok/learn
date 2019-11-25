@@ -8,12 +8,13 @@
 </head>
 <body>
     <div id="test">
-        你好，{{content}}
+        你好，{{content}}，{{description}}<br />
         <span>{{description}}</span>
+        {{obj.x}}
     </div>
 </body>
 <script type="module">
-    import Due from '/core/index.js';
+    import Due from './core/index.js';
     //module 中 变量为局部变量
     window.vm = new Due({
         el:'test',
@@ -24,7 +25,10 @@
                 x:1,
                 y:2,
             },
-            list:[{a:'test',b:15},1,2]
+            list:[
+                {a:'test',b:15},
+                1,
+                2]
         }
     })
 </script>
