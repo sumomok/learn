@@ -1,0 +1,9 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.ball {
+    border-radius:50%;
+    position: absolute;
+}
