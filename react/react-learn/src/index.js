@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TickContr from './components/tickContr'
+import Form from './components/form'
 
-ReactDOM.render(<TickContr />, document.getElementById('root'));
+ReactDOM.render(<Form />, document.getElementById('root'));
