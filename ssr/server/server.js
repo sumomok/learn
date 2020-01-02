@@ -1,7 +1,7 @@
 const express = require('express');
 const server = express();
 const Vue = require('vue');
-const Render = require('vue-server-renderer')
+const Render = require('vue-server-renderer');
 
 server.use(express.static(require("path").join(__dirname, '../assets/')));
 
