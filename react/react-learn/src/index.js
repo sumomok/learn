@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import TickContr from './components/tickContr'
-import Test from './components/banner/Test'
+// import Form from './components/form'
+import Func from './components/defaultprops'
 
-ReactDOM.render(<Test />, document.getElementById('root'));
+ReactDOM.render(<Func />, document.getElementById('root'));
