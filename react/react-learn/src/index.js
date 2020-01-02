@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Form from './components/form'
+// import Form from './components/form'
+import Func from './components/defaultprops'
 
-ReactDOM.render(<Form />, document.getElementById('root'));
+ReactDOM.render(<Func />, document.getElementById('root'));
