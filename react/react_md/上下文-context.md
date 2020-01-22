@@ -1,9 +1,9 @@
 <!--
- * @Author: your name
+ * @Author: lihaoran
  * @Date: 2020-01-02 17:42:41
  * @LastEditTime : 2020-01-03 14:04:41
  * @LastEditors  : Please set LastEditors
- * @Description: In User Settings Edit
+ * @Description: lihaoran
  * @FilePath: \learn\react\react_md\上下文-context.md
  -->
 # context
@@ -31,3 +31,34 @@ React 中的上下文的特点
 
 
 ## 新的API
+
+**创建上下文**
+
+上下文是独立于组件的对象，该对象通过React.createContext(默认值)创建返回的是一个包含两个属性的对象
+1. Provider属性：生产者。一个组件，该组件会创建一个上下文，该组件有一个value属性，通过该属性，可以为其数据赋值
+    1. 同一个Provider，不要用到多个组件中，如果需要在其他组件中使用改数据，应该考虑将数据提升至更高层次（即定义生产者时，定义到更高层的组件中）
+2. Consumer属性：
+
+**使用上下文中的数据**
+
+1. 在类组建中，直接使用this.context获取上下文数据
+    1. 要求：必须拥有静态属性 contextType，应付职位创建的上下文对象
+2. 在函数组建中，需要使用Consumer来获取上下文数据
+    1. Consumer是一个组件
+    2. 他的子节点，是一个函数 （他的Props.children需要传递一个函数）
+
+**注意细节**
+
+如果，上下文提供者（context.Provider）中的Value属性发生变化，会导致该上下文提供的所有后代元素全部重新渲染，无论该子元素是否有优化（should）
+想要优化上述问题 则需要在让state等于一个索引地址固定不变的对象（内部判断原理是用Object.is 去比对两个对象是否发生了变化（甚至是索引地址的变化））
+例：
+    定义：
+    state = {
+        ctx:{
+            a:0,
+            b:"111"
+        }
+    }
+    使用：
+    this.state.ctx.a
+    则可以避免在状态未发生变化时 重新渲染的问题

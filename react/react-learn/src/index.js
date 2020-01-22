@@ -12,6 +12,8 @@ import ReactDOM from 'react-dom';
 // import Func from './components/defaultprops';
 // import Test from './components/banner/Test';
 // import ForwordRef from './components/formRef';
-import OldContext from './components/oldContext'
+// import OldContext from './components/oldContext';
+import Form from './components/FormComp/index'
 
-ReactDOM.render(<OldContext />, document.getElementById('root'));
+
+ReactDOM.render(<Form />, document.getElementById('root'));
