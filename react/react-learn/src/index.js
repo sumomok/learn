@@ -13,7 +13,11 @@ import ReactDOM from 'react-dom';
 // import Test from './components/banner/Test';
 // import ForwordRef from './components/formRef';
 // import OldContext from './components/oldContext';
-import Form from './components/FormComp/index'
+// import Form from './components/FormComp/index';
+// import HookState from './components/HOOK';
+// import StudentContainer from './components/HOOK/studentList';
+// import Test1 from './components/HOOK/callBack';
+import Test from './components/React-transition/';
 
 
-ReactDOM.render(<Form />, document.getElementById('root'));
+ReactDOM.render(<Test />, document.getElementById('root'));

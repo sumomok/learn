@@ -12,7 +12,7 @@ import React, { Component } from 'react'
  * @param {*} props 
  * @param {*} ref 
  */
-// const NewA = React.forwardRef(A)
+// const NewA = React.for wardRef(A)
 // function A(props,ref) {
 //     return <h1 ref={ref}>组件A</h1>
 // }
