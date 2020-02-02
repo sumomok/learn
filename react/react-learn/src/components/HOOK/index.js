@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-
+import React, { useState, useEffect } from 'react';
 export default function HookState() {
     const [n, setN] = useState(0)
     return (
@@ -7,7 +6,7 @@ export default function HookState() {
             {n}
             <button onClick={() => {
                 setN(n + 1);
-            }}>加一</button>
+            }}>åŠ ä¸€</button>
         </div>
     )
 }
