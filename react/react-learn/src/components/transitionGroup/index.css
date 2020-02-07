@@ -1,0 +1,8 @@
+.exit{
+    transform-origin: 0 0 ;
+}
+
+.exit-active{
+    transition:3s;
+    transform: scale(0);
+}

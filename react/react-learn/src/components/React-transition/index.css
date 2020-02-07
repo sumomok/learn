@@ -1,11 +1,35 @@
-.enter{
+.container{
+    width: 300px;
+    height: 100px;
+    margin: 0 auto;
+}
+.comp-container {
+    position: relative;
+}
+.title{
+    position: absolute;
+    left: 120px;
     opacity: 0;
 }
-.enter-active{
+.button{
+    position: relative;
+    top:100px;
+    left: 130px;
+}
+.appear-done{
+    display: block;
+    transition: 2s;
+    transform: translateX(0);
+}
+.appear,.enter{
+    transform: translateX(-100px);
+}
+.appear-active,.enter-active{
     opacity: 1;
     transition: 2s;
+    transform: translateX(0);
 }
-.enter-done{
+.appear-done,.enter-done{
     opacity: 1;
 }
 .exit{
@@ -14,8 +38,8 @@
 .exit-active{
     opacity: 0;
     transition: 2s;
+    transform: translateX(100px);
 }
 .exit-done{
-    opacity: 0;
-    text-align: center;
+    display: none;
 }

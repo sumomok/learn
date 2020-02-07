@@ -24,6 +24,26 @@ CSSTransition
 1. 字符串：为耒阳市添加前缀
 2. 对象: 为每个耒阳市指定具体的名称（非前缀）
 
-关于首次渲染的耒阳市，appear。appear-active、appear-done，他和enter的唯一区别在于完成时，会同事加入apear-done和enter-done
+关于首次渲染的情况，appear。appear-active、appear-done，他和enter的唯一区别在于完成时，会同事加入apear-done和enter-done
+
+# React 动画（三）
+
+SwitchTransition
+
+用于有秩序的切换内部组件
+
+默认情况下：out-in
+
+1. 当key值改变时，会将之前的DOM根元素添加到退出样式（exit，exit-active）
+2. 退出完成时，奖盖DOM元素移除
+3. 重新渲染内部DOM元素
+4. 为新渲染的DOM根元素添加进样式（enter，enter-active，enter-done）
+
+in-out（先进入后退出）
+
+1. 重新渲染内部DOM元素，保留之前的元素
+2. 为新渲染的DOM根元素添加进入样式（enter，enter-active，enter-done）
+3. 将之前的DOM根元素添加退出样式（exit，exit-active）
+4. 退出完成后，将该DOM元素移除
 
 

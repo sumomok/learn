@@ -94,7 +94,7 @@ export default {
     nextMonthDay() {
       return new Date(this.year, this.month + 1, 0).getDate();
     }
-  }
+  },
 };
 </script>
 
