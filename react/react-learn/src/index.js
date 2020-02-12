@@ -18,7 +18,7 @@ import ReactDOM from 'react-dom';
 // import StudentContainer from './components/HOOK/studentList';
 // import Test1 from './components/HOOK/callBack';
 // import Test from './components/React-transition/index.js';
-import Test from './components/transitionGroup/'
+import App from './components/Student/'
 
 
-ReactDOM.render(<Test />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
