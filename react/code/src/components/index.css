@@ -1,0 +1,16 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+p {
+    margin:5px 0;
+        display: inline-block;
+}
+textarea,textarea:hover,textarea:focus{
+    resize: none;
+    overflow: hidden;
+    border: 0;
+    box-shadow: none;
+    outline:none;
+    display: inline-block;
+}

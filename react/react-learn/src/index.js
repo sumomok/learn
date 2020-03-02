@@ -18,7 +18,8 @@ import ReactDOM from 'react-dom';
 // import StudentContainer from './components/HOOK/studentList';
 // import Test1 from './components/HOOK/callBack';
 // import Test from './components/React-transition/index.js';
-import App from './components/Student/'
+import App from './components/MyRouter';
+// import './components/MyRouter/createBorwserHistory';
 
 
 ReactDOM.render(<App />, document.getElementById('root'));
