@@ -22,7 +22,6 @@ export default function getMatch(path, pathName, options) {
         url: result[0],
         isExact: result[0] === pathName
     }
-    console.log(match);
     return match
 
 }

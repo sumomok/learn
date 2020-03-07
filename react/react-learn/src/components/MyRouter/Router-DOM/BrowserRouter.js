@@ -6,7 +6,7 @@ export default class BrowserRouter extends PureComponent {
     history = createBrowserHistory({ ...this.props })
     render() {
         return (
-            < Router history={this.history} >
+            <Router history={this.history} >
                 {this.props.children}
             </Router >
         )

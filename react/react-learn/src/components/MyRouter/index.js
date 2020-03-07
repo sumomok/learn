@@ -1,32 +1,42 @@
 import React, { PureComponent } from 'react';
 // import { BrowserRouter, Route } from 'react-router-dom'
-import { BrowserRouter, Route } from './Router-DOM';
+import { BrowserRouter, Route, Switch } from './Router-DOM';
 
 
 export default class index extends PureComponent {
     render() {
         return (
             <BrowserRouter>
-                <Route path='/page1' component={page1} />
-                <Route path='/page2' component={page2} />
-                <Route path='/' component={page} />
+                <Switch>
+                    <Route path='/page1' component={page1} />
+                    <Route path='/page1' component={page2} />
+                    <Route path='/' component={page} />
+                </Switch>
             </BrowserRouter>
         )
     }
 }
-function page1() {
+function page1({ history }) {
     return (
         <>
             page1
-        < button > 切换2</button >
+        < button onClick={
+                () => {
+                    history.push('/page2')
+                }
+            } > 切换2</button >
         </>
     )
 }
-function page2() {
+function page2({ history }) {
     return (
         <>
             page2
-        < button > 切换1</button >
+        < button onClick={
+                () => {
+                    history.push('/page1')
+                }
+            } > 切换1</button >
         </>
     )
 }
