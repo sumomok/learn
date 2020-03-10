@@ -18,8 +18,8 @@ import ReactDOM from 'react-dom';
 // import StudentContainer from './components/HOOK/studentList';
 // import Test1 from './components/HOOK/callBack';
 // import Test from './components/React-transition/index.js';
-import App from './components/MyRouter';
+// import App from './components/MyRouter';
 // import './components/MyRouter/createBorwserHistory';
+import './components/Redux/index.js'
 
-
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<h1>test</h1>, document.getElementById('root'));

@@ -72,3 +72,63 @@ store 表示数据仓库，用于存储共享数据，还可以根据不同的ac
         2. 不可有异步
         3. 不可以对外部环境中的数据造成影响
 6. 为了方便利用action创建函数来分发（触发）action，redux提供了一个函数（bindActionCreators），该函数用于增强action创建函数的功能，使他不仅可以创建action，并且创建后悔自动完成分发
+
+## reducer
+
+reducer 是用来改变数据的函数
+
+1. 一个数据仓库 有且仅有一个reducer，并在通常情况下，一个工程文件只有一个仓库，因此，一个系统只有一个reducer
+2. 为了方便管理，通常会将reducer放到单独的文件中。
+3. reducer调用的时机
+    1. 当创建了一个store时，会调用一次reducer
+        1. 创建仓库，不传递任何默认状态时，可以利用创建时调用reducer的特性和给第一个参数state默认值的形式，来初始化数据仓库中的数据
+    2. 用过store.dispatch，分发一个action的时候，此时，会调用reducer
+4. reducer内部通常使用switch来判断type值（代码简单，高效）
+5. **reducer**必须是一个没有副作用的纯函数（redux并没有明确要求（无法判断是不是纯函数），但公司会要求必须是纯函数）
+    1. 纯函数有利于测试和调试
+    2. 有利于还原数据
+    3. 有利于将来和react结合时的优化
+    4. 具体要求
+        1. 不能改变参数
+        2. 不能有异步
+        3. 不能对外部环境造成影响
+6. 由于在大中型项目中，操作比较复杂，数据结构也比较复杂，一般会对reducer进行细分
+    删除：数组的filter方法
+    修改：map方法
+    原则是不能修改原来的state
+
+## Store 数据仓库
+
+通过createStore方法创建的对象
+
+该对象成员
+- dispatch  分发action
+- getState  得到仓库中当前的状态
+- replaceReducer 替换当前的reducer
+- subscribe 注册一个监听器，监听器是一个无参函数，当分发一个action后 触发该监听器
+
+
+## Redux中间件 （middleware）
+
+中间件：类似于插件，可以在不影响原本功能、且不改动原来代码的基础上，对其功能进行增强，在redux中，中间件主要用于增强dispatch函数。
+
+实现redux中间件的基本原理，是更改仓库中的dispatch函数
+
+redux中间件的书写：
+- 中间件本身就是一个函数，该函数接受一个store参数，表示创建的仓库，该仓库并非一个完整的仓库对象，仅包含getState，dispatch,该函数运行的事件是创建仓库之后运行。
+ - 由于创建仓库后需要自动运行设置的中间件函数，因此，需要在创建仓库时，告诉仓库有哪些中间件
+ - 需要调用 applyMiddleware函数，将函数的返回结果作为createStore的第二或第三个参数。
+
+ 中间件函数必须返回一个dispatch创建函数
+
+ applyMiddleware函数，用于记录有哪些中间件，他会返回一个函数
+  该函数用于记录创建仓库的方法，然后又返回一个函数
+### redux-logger
+  日志记录工具，建议传入中间件时将此放到参数的最后一位
+  https://www.npmjs.com/package/redux-logger
+### 副作用处理的中间件
+  #### redux-thunk
+  用来处理action中返回为函数的情况，如果返回对象，跳过此中间件直接运行下一个中间件
+  #### redux-promise
+  #### redux-saga
+
