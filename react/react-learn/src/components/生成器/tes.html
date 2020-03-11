@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function* creatorGenerator() {
+        console.log('generator 开始');
+        let result = yield 1;
+        console.log('generator 第一次', result);
+        result = yield 2;
+        console.log('generator 第二次', result);
+        result = yield 3;
+        console.log('generator 第三次', result);
+        return "结束"
+
+    }
+    let generator = creatorGenerator()
+</script>
+
+</html>

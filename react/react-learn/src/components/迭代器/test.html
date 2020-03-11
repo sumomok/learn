@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // // 斐波拉契数列创建
+    // let iterator = {
+    //     a: 1,
+    //     b: 1,
+    //     currentIndex: 1,
+    //     next() {
+    //         if (this.currentIndex === 1 || this.currentIndex === 2) {
+    //             this.currentIndex++;
+    //             return {
+    //                 value: 1,
+    //                 done: false
+    //             }
+    //         } else {
+    //             let c = this.a + this.b;
+    //             this.currentIndex++;
+    //             this.a = this.b;
+    //             this.b = c
+    //             return {
+    //                 value: c,
+    //                 done: false
+    //             }
+    //         }
+
+    //     }
+    // }
+    // // 输出第x位斐波拉契数列
+    // let x = 100
+    // for (let index = 0; index < x; index++) {
+    //     console.log(iterator.next().value)
+    // }
+    let obj = {
+        [Symbol.iterator]: creatorIterator
+    }
+    function creatorIterator() {
+        return {
+            value: 1,
+            currentIndex: 0,
+            current: 3,
+            next() {
+                let newObj = {
+                    value: this.value++,
+                    done: this.currentIndex >= this.current
+                }
+                this.currentIndex++;
+                return newObj
+            }
+        }
+    }
+
+    for (let item of obj) {
+        console.log(item);
+    }
+</script>
+
+</html>
