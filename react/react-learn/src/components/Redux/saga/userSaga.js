@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-03-11 16:58:58
- * @LastEditTime: 2020-03-11 17:53:46
+ * @LastEditTime: 2020-03-12 14:36:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \learn\react\react-learn\src\components\Redux\saga\userSaga.js
@@ -11,7 +11,8 @@ import { takeEvery, call, put, cps } from 'redux-saga/effects';
 import uuid from 'uuid';
 
 export default function* () {
-    yield takeEvery(actionTypes.FETCH, fetch);
+    yield takeEvery(actionTypes.FEATCHDATA, add);
+
 }
 function* fetch() {
     // promise 模式 如果传入传统回调函数模式会立即执行

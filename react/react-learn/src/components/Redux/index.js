@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-03-10 16:20:27
- * @LastEditTime: 2020-03-11 17:41:15
+ * @LastEditTime: 2020-03-12 19:42:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \learn\react\react-learn\src\components\Redux\index.js
@@ -9,7 +9,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import reducer from './reducer';
-import * as actionTypes from './action/usersAction.js';
+import * as NumberActionTypes from './action/number.js';
 import creatorSagaMidwaer from 'redux-saga';
 import rootTask from './saga/index'
 
@@ -20,4 +20,10 @@ let store = createStore(reducer, applyMiddleware(saga, logger));
 // let store = applyMiddleware(logger)(createStore)(reducer)
 
 saga.run(rootTask);
-store.dispatch(actionTypes.fetchData());
+window.autoIncrease = () => {
+    store.dispatch(NumberActionTypes.autoIncrease());
+}
+window.stopIncrease = () => {
+    store.dispatch(NumberActionTypes.stopIncrease());
+}
+// store.dispatch(actionTypes.getAddAction({ id: uuid(), name: "test" }));
