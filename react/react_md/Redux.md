@@ -236,26 +236,40 @@ function * test(){
     指令
     - take指令（阻塞）
         监听某个action，如果action发生了，则会进行下一步处理，take指令仅监听一次。
+        注意：当传入函数时 会匹配 函数（action）为true的 action去分发 如果没有相应的处理切记不要传入函数
     - all指令（阻塞）
         该函数传入一个数组，数组中放入生成器，saga会等待所有的生成器全部完成后才会进一步处理
     - takeEvery指令（不阻塞，但循环监听）
         不断的监听某个action，当某个action到达之后，运行一个函数
-    - delay指令 （阻塞，控制阻塞多少秒）
-        延迟多少毫秒
-    - put指令 （不阻塞）
-        重新分发一个action，相当于在yield后执行了dispatch一个action（注意：saga执行过程中如果对结果有修改会默认冻结已监听的分发action后通过reducer得到的结果，将结果变为只能分发该action时才可以修改，所以只能用saga来监听一些不生成结果的action，通过put指令来触发正常的action）
-    - call指令 （可能阻塞）
-        用于副作用函数（通常是异步）调用，如果要改变this 则第一个参数是this，将要执行的函数放入数组中，成为第二个参数
-    - apply指令 （可能阻塞）
-        与call作用相同，与原生apply用法相同
-    - select指令（可能阻塞）可以传一个函数，通过这个函数对仓库中的数据进行筛选
-        用于得到当前仓库中的数据
-    - cps指令（可能阻塞）
-        用于调用传统的回调函数的异步
+    - delay指令 延迟多少毫秒
+    - put指令 
+        重新分发一个action，相当于在yield后执行了dispatch一个action（注意：saga执行过程中会默认冻结已监听的分发action后通过reducer得到的结果，将结果变为只能分发该action时才可以修改，所以只能用saga来监听一些不生成结果的action，通过put指令来触发正常的action）
+    - call指令 
+        用于副作用函数（通常是异步）调用，
+    - apply指令 
+        与call相同
+    - select指令 
+        类似于 store.getState() 得到仓库数据 其中可以传函数，筛选需要的仓库数据
+    - cps 指令（阻塞）
+        用于执行传统回调函数
     - fork 指令
-        用于开启一个新的任务，该任务不会阻塞，该函数需要传递一个生成器函数
-    - cancel 指令
-        
-    - cancelled 指令
-    - race 指令
+        开启一个新的任务，该指令不会阻塞后续任务，该指令需要传递一个生成器函数，fork返回了一个TASK
+    - cancel：
+        用于取消一个或者多个任务，常用于取消fork创建出来的任务，原理就是利用generator.return 来强制结束该任务
+        如果不传参数，默认结束所在生成器函数的任务
+    - cancelled:
+        判断当前任务是否被取消掉了
+    - race：（阻塞）
+        竞赛，可以传递多个指令，当其中任何一个指令结束后，会直接结束所有的任务，与promise.rece一致
 
+
+  #### redux-action
+    该库用于简化action-types，action-creator，reducer
+    官网文档：https://redux-actions.js.org/
+
+    - createAction(s)
+        创建一个(多个)action创建函数
+    - handleAction(s)
+        创建一个（多个）reducer函数
+    - combineActions
+        合并多个action 返回一个同意的函数，给同一类reducer处理方式;
