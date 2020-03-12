@@ -238,11 +238,24 @@ function * test(){
         监听某个action，如果action发生了，则会进行下一步处理，take指令仅监听一次。
     - all指令（阻塞）
         该函数传入一个数组，数组中放入生成器，saga会等待所有的生成器全部完成后才会进一步处理
-    - takeEvery指令
+    - takeEvery指令（不阻塞，但循环监听）
         不断的监听某个action，当某个action到达之后，运行一个函数
-    - delay指令 延迟多少毫秒
-    - put指令 重新分发一个action，相当于在yield后执行了dispatch一个action（注意：saga执行过程中会默认冻结已监听的分发action后通过reducer得到的结果，将结果变为只能分发该action时才可以修改，所以只能用saga来监听一些不生成结果的action，通过put指令来触发正常的action）
-    - call指令 用于副作用函数（通常是异步）调用，
-    - apply指令
-    - select指令
+    - delay指令 （阻塞，控制阻塞多少秒）
+        延迟多少毫秒
+    - put指令 （不阻塞）
+        重新分发一个action，相当于在yield后执行了dispatch一个action（注意：saga执行过程中如果对结果有修改会默认冻结已监听的分发action后通过reducer得到的结果，将结果变为只能分发该action时才可以修改，所以只能用saga来监听一些不生成结果的action，通过put指令来触发正常的action）
+    - call指令 （可能阻塞）
+        用于副作用函数（通常是异步）调用，如果要改变this 则第一个参数是this，将要执行的函数放入数组中，成为第二个参数
+    - apply指令 （可能阻塞）
+        与call作用相同，与原生apply用法相同
+    - select指令（可能阻塞）可以传一个函数，通过这个函数对仓库中的数据进行筛选
+        用于得到当前仓库中的数据
+    - cps指令（可能阻塞）
+        用于调用传统的回调函数的异步
+    - fork 指令
+        用于开启一个新的任务，该任务不会阻塞，该函数需要传递一个生成器函数
+    - cancel 指令
+        
+    - cancelled 指令
+    - race 指令
 

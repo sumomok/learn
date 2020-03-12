@@ -10,7 +10,6 @@ import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import reducer from './reducer';
 import * as actionTypes from './action/usersAction.js';
-import uuid from 'uuid';
 import creatorSagaMidwaer from 'redux-saga';
 import rootTask from './saga/index'
 
@@ -21,4 +20,4 @@ let store = createStore(reducer, applyMiddleware(saga, logger));
 // let store = applyMiddleware(logger)(createStore)(reducer)
 
 saga.run(rootTask);
-store.dispatch(actionTypes.getAddAction({ id: uuid(), name: "test" }));
+store.dispatch(actionTypes.fetchData());
