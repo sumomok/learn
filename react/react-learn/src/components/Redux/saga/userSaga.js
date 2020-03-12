@@ -6,12 +6,12 @@
  * @Description: In User Settings Edit
  * @FilePath: \learn\react\react-learn\src\components\Redux\saga\userSaga.js
  */
-import * as actionTypes from '../action/usersAction'
-import { takeEvery, call, put, cps } from 'redux-saga/effects';
+import { featchData, add } from '../action/usersAction'
+import { takeEvery, call, put } from 'redux-saga/effects';
 import uuid from 'uuid';
 
 export default function* () {
-    yield takeEvery(actionTypes.FEATCHDATA, add);
+    yield takeEvery(featchData.toString(), add);
 
 }
 function* fetch() {
@@ -19,7 +19,7 @@ function* fetch() {
     let result = yield call(["abc", fetchData]);
     // 传统回调函数模式 如果传入promise模式 则不会执行promise模式的返回值
     // let result = yield cps(fetchData);
-    yield put(actionTypes.getAddAction(result));
+    yield put(add(result));
 }
 // Promise模式
 function fetchData() {

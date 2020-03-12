@@ -6,21 +6,21 @@
  * @Description: In User Settings Edit
  * @FilePath: \learn\react\react-learn\src\components\Redux\saga\numberSaga.js
  */
-import * as actionTypes from '../action/number';
+import { autoIncrease, stopIncrease, increase } from '../action/number';
 import { fork, take, delay, put, race, call } from 'redux-saga/effects';
 
-function* autoIncrease() {
+function* autoIncreaseSaga() {
     while (true) {
         yield race({
             increase: call(function* () {
-                yield take(actionTypes.AUTOINCREASE);
+                yield take(autoIncrease.toString());
                 while (true) {
                     yield delay(2000)
-                    yield put(actionTypes.increase())
+                    yield put(increase())
                 }
             }),
             cancel: call(function* () {
-                yield take(actionTypes.STOPINCREASE)
+                yield take(stopIncrease.toString())
             })
         })
     }
@@ -62,6 +62,6 @@ function* autoIncrease() {
 //     }
 // }
 export default function* () {
-    yield fork(autoIncrease);
+    yield fork(autoIncreaseSaga);
     // yield takeEvery(actionTypes.STOPINCREASE, stopTask)
 }

@@ -8,8 +8,8 @@
  */
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
-import reducer from './reducer';
-import * as NumberActionTypes from './action/number.js';
+import reducer from './action';
+import { autoIncrease, stopIncrease } from './action/number.js';
 import creatorSagaMidwaer from 'redux-saga';
 import rootTask from './saga/index'
 
@@ -21,9 +21,9 @@ let store = createStore(reducer, applyMiddleware(saga, logger));
 
 saga.run(rootTask);
 window.autoIncrease = () => {
-    store.dispatch(NumberActionTypes.autoIncrease());
+    store.dispatch(autoIncrease());
 }
 window.stopIncrease = () => {
-    store.dispatch(NumberActionTypes.stopIncrease());
+    store.dispatch(stopIncrease());
 }
 // store.dispatch(actionTypes.getAddAction({ id: uuid(), name: "test" }));

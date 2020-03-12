@@ -6,28 +6,17 @@
  * @Description: In User Settings Edit
  * @FilePath: \learn\react\react-learn\src\components\Redux\action\number.js
  */
-export const AUTOINCREASE = Symbol('number-autoIncrease');
-export const STOPINCREASE = Symbol('number-stopIncrease');
-export const INCREASE = Symbol('number-increase');
-export const CLEARNUMBER = Symbol('number-clearnumber')
-export function increase() {
-    return {
-        type: INCREASE
-    }
-}
+import { createActions, handleActions } from 'redux-actions'
 
-export function autoIncrease() {
-    return {
-        type: AUTOINCREASE
-    }
-}
-export function stopIncrease() {
-    return {
-        type: STOPINCREASE
-    }
-}
-export function clearNumber() {
-    return {
-        type: CLEARNUMBER
-    }
-}
+export const { autoIncrease, stopIncrease, increase, clearNumber, decrease } = createActions({
+    AUTO_INCREASE: null,
+    STOP_INCREASE: null,
+    INCREASE: null,
+    CLEAR_NUMBER: null,
+    DECREASE: null
+})
+export default handleActions({
+    [increase]: state => state + 1,
+    [clearNumber]: state => 0,
+    [decrease]: state => state - 1
+}, 0)
