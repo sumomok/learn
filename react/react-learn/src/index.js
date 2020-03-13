@@ -20,6 +20,6 @@ import ReactDOM from 'react-dom';
 // import Test from './components/React-transition/index.js';
 // import App from './components/MyRouter';
 // import './components/MyRouter/createBorwserHistory';
-import './components/Redux/index.js'
+import App from './components/newStudent/components/App'
 
-ReactDOM.render(<h1>test</h1>, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));

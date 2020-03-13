@@ -9,11 +9,11 @@
 
 import { createActions, handleActions } from 'redux-actions'
 
-export const { add, deletes, edit, featchData } = createActions({
+export const { add, deletes, edit, fetchData } = createActions({
     ADD: user => user,
     DELETES: id => id,
     EDIT: (id, action) => ({ id, ...action }),
-    FEATCH_DATA: null
+    FETCH_DATA: null
 })
 
 export default handleActions({

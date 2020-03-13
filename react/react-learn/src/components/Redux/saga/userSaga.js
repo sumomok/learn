@@ -6,12 +6,12 @@
  * @Description: In User Settings Edit
  * @FilePath: \learn\react\react-learn\src\components\Redux\saga\userSaga.js
  */
-import { featchData, add } from '../action/usersAction'
+import { fetchData, add } from '../action/usersAction'
 import { takeEvery, call, put } from 'redux-saga/effects';
 import uuid from 'uuid';
 
 export default function* () {
-    yield takeEvery(featchData.toString(), add);
+    yield takeEvery(fetchData.toString(), add);
 
 }
 function* fetch() {
