@@ -11,7 +11,7 @@ import { takeEvery, call, put } from 'redux-saga/effects';
 import uuid from 'uuid';
 
 export default function* () {
-    yield takeEvery(fetchData.toString(), add);
+    yield takeEvery(fetchData.toString(), fetch);
 
 }
 function* fetch() {
@@ -22,7 +22,7 @@ function* fetch() {
     yield put(add(result));
 }
 // Promise模式
-function fetchData() {
+function fetchDataSaga() {
     return new Promise((res, rej) => {
         setTimeout(() => {
             if (Math.random() > 0.5) {

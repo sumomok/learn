@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
 function studentlist(props) {
     let dom = props.studentlist.map(it => {
         return (
