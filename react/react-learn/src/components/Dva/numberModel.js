@@ -1,36 +1,36 @@
 export default {
-    namespace:"number",
-    state:0,
-    reducers:{
-        increase:state=>state+1,
-        decrease:state=>state-1,
-        cover:({payload})=>payload,
+    namespace: "number",
+    state: 10,
+    reducers: {
+        increase: state => state + 1,
+        decrease: state => state - 1,
+        cover: ({ payload }) => payload,
     },
-    effects:{
-        *asyncIncrease(action,{call,put}){
-            yield call([null,delpy],2000);
+    effects: {
+        *asyncIncrease(action, { call, put }) {
+            yield call([null, delpy], 2000);
             yield put({
-                type:"increase"
+                type: "increase"
             })
         },
-        *asyncDecrease(action,{call,put}){
-            yield call([null,delpy],2000);
+        *asyncDecrease(action, { call, put }) {
+            yield call([null, delpy], 2000);
             yield put({
-                type:"decrease"
+                type: "decrease"
             })
         }
     },
-    subscriptions:{
-        test(){
+    subscriptions: {
+        test() {
             console.log('test');
         }
     }
 }
 
-function delpy(time){
-    return new Promise((res,rej)=>{
-        setTimeout(()=>{
+function delpy(time) {
+    return new Promise((res, rej) => {
+        setTimeout(() => {
             res();
-        },time)
+        }, time)
     })
 }
