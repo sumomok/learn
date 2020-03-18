@@ -7,6 +7,7 @@
     "animate.css": "^3.7.2",
     "connected-react-router": "^6.7.0",
     "dva": "^2.4.1",
+    "dva-loading": "^3.0.20",
     "history": "^4.10.1",
     "path-to-regexp": "^6.1.0",
     "prop-types": "^15.7.2",

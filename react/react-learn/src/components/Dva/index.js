@@ -8,12 +8,14 @@
  */
 import React from 'react';
 // import { connect } from 'react-redux';
-import { connect } from '../myDva'
-import { routerRedux, NavLink, Route, Switch } from '../myDva/router'
+// import { connect } from '../myDva'
+import { connect } from 'dva';
+import { routerRedux, NavLink, Route, Switch } from 'dva/router'
+// import { routerRedux, NavLink, Route, Switch } from '../myDva/router'
 let newNumber = connect(mapStateToprops, mapDispatchToprops)(number);
 // let newNumber = connect(null, mapDispatchToprops)(number);
 function index(props) {
-    // let Comp = newNumber
+
     return (
         <div>
             <routerRedux.ConnectedRouter history={props.history}>

@@ -32,8 +32,27 @@ dva不仅仅是一个第三方库，更是一个框架，它主要整合了redux
     4. onAction:当触发action做一些事情（就是一个redux中间件）
         1. 传入一个中间件对象
         2. 传入一个中间件数组
-    5. onStateChange:当状态发生变化的时候触发
-    6. onReducer:对模型中的reducer的进一步封装
-    7. onEffect:类似于对模型中的effect的进一步封装
-    8. extraReducers 用于配置额外的Reducers，他是一个对象，每一个属性值为一个方法，每个方法执行得到的值都会合并到store里边
-    9. extraEnhancers：它适用于封装createstore函数，dva会将原来的仓库创建函数作为参数传递，返回一个新的用于创建仓库的函数。函数必须放在数组中（可能存在多个创建函数）
+    5. onStateChange:当状态发生变化的时候触发（对根reducer函数进行重新订阅，因为当状态发生改变时，必定有reducer的调用）
+    6. onReducer:对模型中的reducer的进一步封装（对根reducer函数进行重新订阅）
+    7. onEffect:类似于对模型中的effect的进一步封装（对于每个通过触发Action来触发的异步操作进行订阅）
+    8. extraReducers 用于配置额外的Reducers，他是一个对象，每一个属性值为一个方法，每个方法执行得到的值都会合并到store里边（直接混合到根reducer中即可）
+    9. extraEnhancers：它适用于封装createstore函数，dva会将原来的仓库创建函数作为参数传递，返回一个新的用于创建仓库的函数。函数必须放在数组中（可能存在多个创建函数） （原理：**将传入的createStore作为第一个函数，将得到的结果套娃式传递到extraEnhancers这个数组中(具体语句 ↓)**）
+    ```js
+        let newCreateStore = extraEnhancers.reduce((f1,f2)=>f2(f1),createStore);
+    ```
+    **3-9是实现了Dva对store，saga两个扩展的各方面的代理订阅，包括但不限于action的调用订阅，数据改变时的订阅，reducer调用时的订阅，异步处理时的订阅，**
+
+## dva插件
+    通过 **dva对象.use(插件)**,来使用插件，插件本质上就是一个对象，该对象与配置对象相同，dva会在启动时，将传递的插件对象混合到配置中。
+### dva-loading
+
+    该插件会在仓库中加入一个状态,名称为loading，他是一个对象，其中有一下属性
+    - global：全局是否正在处理副作用（加载），只要有任何一个模型在处理副作用，该属性为true，
+    - model ： 说明是哪个数据模型正在加载，加载为true
+    - effects：说明是哪个异步操作正在加载。
+
+    原理 ：
+    dva.use() 传入一个配置对象，与dva内部配置对象进行混合
+    dva-loading: 
+    返回一个配置对象，将需要混合的reducer配置（{global:false,model:{},effect:{}}）到extraReducers中,
+    

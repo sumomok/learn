@@ -18,9 +18,7 @@ export default function (opts = {}) {
         onStateChange: null,
         onAction: null
     }
-    console.log(opts);
     opts = defaultOptions;
-    console.log(opts);
     var app = {
         model,
         router,
@@ -129,10 +127,10 @@ export default function (opts = {}) {
                 })
             }
         }
-        console.log(taskArr);
         return function* () {
             for (const item of taskArr) {
                 yield sagaEffects.takeEvery(item.type, function* (action) {
+                    // 重写put方法使其在调用过程中自动将namespace传入
                     yield* item.generatorFunc(action, { ...sagaEffects, put: item.put })
                 })
             }

@@ -1,0 +1,15 @@
+{
+  "name": "umi-learn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start":"umi dev",
+    "build":"umi build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^13.9.1"
+  }
+}

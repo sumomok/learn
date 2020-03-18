@@ -23,8 +23,9 @@
 // import App from './components/newStudent/components/App'
 // import './components/Redux'
 //引入dva
-// import dva from 'dva';
-import dva from './components/myDva';
+import dva from 'dva';
+// import dva from './components/myDva';
+import createLoading from 'dva-loading'
 import RouterCofig from './components/Dva/routerCofig'
 import modelObj from './components/Dva/numberModel';
 import { createBrowserHistory } from 'history';
@@ -32,10 +33,11 @@ import { createBrowserHistory } from 'history';
 const app = dva({
     history: createBrowserHistory(),
 });
+app.use(createLoading());
 //路由加载app
 app.router(RouterCofig);
 // model可以执行多次 传入多个数据模型
-app.model(modelObj)
+app.model(modelObj);
 // 开启dva应用程序 类似于: ReactDom.render(react元素，根组件)
 app.start('#root');
 // import * as router from  './components/myDva/router';
