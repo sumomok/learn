@@ -47,17 +47,43 @@
 // console.log(getDeck(createDeck()));
 
 
-enum Permission {
-    read = 1,
-    writer = 2,
-    create = 4,
-    delete = 8,
-}
-// | 或运算符
-let p = Permission.read | Permission.writer;
-function hasPermission (target:Permission,per:Permission){
-    // & 且运算符
-    return (target & per)  ===  per;
-}
-//^ 异或
-console.log(p ^  Permission.writer)
+// enum Permission {
+//     read = 1,
+//     writer = 2,
+//     create = 4,
+//     delete = 8,
+// }
+// // | 或运算符
+// let p = Permission.read | Permission.writer;
+// function hasPermission (target:Permission,per:Permission){
+//     // & 且运算符
+//     return (target & per)  ===  per;
+// }
+// //^ 异或
+// console.log(p ^  Permission.writer)
+
+// interface User{
+//     name:string
+//     age:number
+//     // sayHello:()=>void
+// }
+
+// let u:User = {
+//     name:"test",
+//     age:12
+// }
+
+// interface User {
+//     readonly ID:string
+//     name:string
+//     age:number
+// }
+
+// let user:User = {
+//     ID:"123",
+//     name:"asdf",
+//     age:15
+// }
+
+let arr:readonly number[] = [3,4,6];
+
