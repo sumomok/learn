@@ -1,0 +1,23 @@
+$RedColor : #f40;
+$BlockColor:#000;
+$borderColor:#333;
+.chess{
+    width:70px;
+    height:70px;
+    border:5px solid $borderColor;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    .chess-item{
+        width:50px ;
+        height: 50px;
+        border-radius:50% ;
+    }
+    .red{
+        background-image:radial-gradient(#fff,$RedColor);
+    }
+    .block{
+        background-image:radial-gradient(#fff,$BlockColor);
+    }
+}

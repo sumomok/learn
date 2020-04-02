@@ -1,0 +1,15 @@
+{
+  "name": "webpacklearn",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "loader-utils": "^2.0.0",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "scripts": {
+    "dev": "npx webpack",
+    "pro": "npx webpack --mode=production"
+  }
+}

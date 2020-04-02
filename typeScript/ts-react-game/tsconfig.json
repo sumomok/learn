@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,//是否允许js与ts语法交互（就是ts引js，js引ts）
+    "skipLibCheck": true,//是否跳过声明文件的类型检查
+    "esModuleInterop": true,//commonjs与es6模块化语法通用
+    "allowSyntheticDefaultImports": true,//取消commonjs与es6的类型检查
+    "strict": true,// 所有需要严格检查的全部开启
+    "forceConsistentCasingInFileNames": true,//是否允许不一样的大小写引入（在引入文件的时候，文件名区分大小写）
+    "module": "esnext",// 模块化标准 （esnext允许动态导入） 
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,//不生成js文件
+    "jsx": "react"//如何解析jsx
+  },
+  "include": [
+    "src"
+  ]
+}
