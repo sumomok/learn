@@ -10,8 +10,13 @@
 import { GameShow } from "../types";
 import ShwoSquare from "./SquareShwo";
 import $ from 'jquery';
+import { Game } from "../Game";
 
 export class GameSquareShow implements GameShow {
+    init(Game: Game): void {
+        // 设置宽高
+        // 注册键盘事件
+    }
     shwoNext(Teris: import("../squareGroup").SquareGroup): void {
         Teris.squareGroup.forEach(it => {
 

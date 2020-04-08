@@ -7,11 +7,12 @@
  * @FilePath: \learn\typeScript\Russia\src\core\Game.ts
  */
 
-import { GameState, Direction } from "./types";
+import { GameState, Direction, SquareArr } from "./types";
 import { createTeris } from "./Teris";
 import { SquareGroup } from "./squareGroup";
 import GameRule from "./GameRule";
 import { GameSquareShow } from "./squareShwo/GameSquareShow";
+import Square from "./square";
 function IsSquareGroup(obj: any): obj is SquareGroup {
     if (typeof obj === 'object') {
         return true
@@ -20,12 +21,20 @@ function IsSquareGroup(obj: any): obj is SquareGroup {
     }
 }
 export class Game {
-    private _gameState: GameState = GameState.init;
+    private  _gameState: GameState = GameState.init;
     private _timer?: number;
     private _Teris?: SquareGroup;
     private _nextTeris: SquareGroup = createTeris();
     private _duration: number = 1000;
-    private _Viewer: GameSquareShow
+    private _Viewer: GameSquareShow;
+    private _exists:SquareArr = [];
+
+    get gameState (){
+        return this._gameState;
+    }
+    set gameState(value){
+        this._gameState = value;
+    }
     constructor(Viewer: GameSquareShow) {
         this._Viewer = Viewer;
         this._Viewer.shwoNext(this._nextTeris)
@@ -37,43 +46,54 @@ export class Game {
         }
     }
     private autoDrop() {
-        if (this._timer && this._gameState !== GameState.playing && IsSquareGroup(this._Teris)) {
+        if (this._timer && this._gameState === GameState.playEnd && IsSquareGroup(this._Teris)) {
+            clearInterval(this._timer);
             return
         } else {
             if (this._Teris) {
                 this._timer = setInterval(() => {
-                    if (!GameRule.move(this._Teris as SquareGroup, Direction.down)) {
+                    if (!GameRule.move(this._Teris as SquareGroup, Direction.down,this._exists)) {
                         this.handleButton()
                     }
-                }, this._duration)
+                }, this._duration) as unknown as number
             }
         }
 
     }
     private switchTeris() {
         this._Teris = this._nextTeris;
+        if(GameRule.judgeDoundary(this._Teris.shape,this._Teris.center,this._exists)){
+            this._gameState = GameState.playEnd
+            return
+        }
         this._nextTeris = createTeris();
         this._Viewer.switchsSquare(this._Teris);
         this._Viewer.shwoNext(this._nextTeris);
     }
     public drop() {
         if (this._Teris) {
-            GameRule.move(this._Teris, Direction.down)
+            while(GameRule.move(this._Teris, Direction.down,this._exists)){
+
+            }
         }
     }
     public left() {
         if (this._Teris) {
-            GameRule.move(this._Teris, Direction.left)
+            GameRule.move(this._Teris, Direction.left,this._exists)
         }
     }
     public right() {
         if (this._Teris) {
-            GameRule.move(this._Teris, Direction.right)
+            GameRule.move(this._Teris, Direction.right,this._exists)
         }
+    }
+    public rotate(){
+        this._Teris?.rotate()
     }
     private handleButton() {
         clearInterval(this._timer);
-        this._timer = undefined;
+        this._exists.push(...this._Teris?.squareGroup);
+        GameRule.deleteSquares(this._exists)
         this.switchTeris();
         this.autoDrop();
     }

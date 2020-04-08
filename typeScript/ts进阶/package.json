@@ -4,5 +4,9 @@
   },
   "scripts": {
     "start": "nodemon --watch src -e ts --exec ts-node src/index.ts"
+  },
+  "devDependencies": {
+    "class-validator": "^0.11.1",
+    "reflect-metadata": "^0.1.13"
   }
 }

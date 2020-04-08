@@ -1,5 +1,6 @@
 import { Game } from "./core/Game";
 import { GameSquareShow } from "./core/squareShwo/GameSquareShow";
+import $ from 'jquery'
 
 /*
  * @Author: your name
@@ -10,4 +11,16 @@ import { GameSquareShow } from "./core/squareShwo/GameSquareShow";
  * @FilePath: \learn\typeScript\Russia\src\index.js
  */
 let G = new Game(new GameSquareShow())
-// G.gameStart()
+G.gameStart()
+$('#right').click(()=>{
+    G.right()
+})
+$('#left').click(()=>{
+    G.left()
+})
+$('#down').click(()=>{
+    G.drop()
+})
+$('#routater').click(()=>{
+    G.rotate()
+})

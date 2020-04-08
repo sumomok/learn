@@ -1,10 +1,8 @@
-interface ITestA {
-    name:string
-    sayHello:(this:ITestA)=>void
-}
-let testa:ITestA = {
-    name:"test",
-    sayHello (){
-        console.log(this,this.name)
-    }
+import 'reflect-metadata';
+import {IsNotEmpty} from 'class-validator'
+
+class RegUser{
+    @IsNotEmpty()
+    loginId:string = ""
+    loginpsw:string = ""
 }

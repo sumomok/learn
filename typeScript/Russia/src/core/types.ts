@@ -1,5 +1,6 @@
 import Square from "./square";
 import { SquareGroup } from "./squareGroup";
+import { Game } from "./Game";
 
 /*
  * @Author: your name
@@ -35,4 +36,5 @@ export enum GameState {
 export interface GameShow {
     switchsSquare(nextTeris: SquareGroup): void,
     shwoNext(Teris: SquareGroup): void,
+    init(Game:Game):void
 }

@@ -1,6 +1,7 @@
 import { SquareGroup } from "./squareGroup";
-import { IPoint, Direction } from "./types";
+import { IPoint, Direction, SquareArr } from "./types";
 import { GameRuleConfig } from "./GameRule.config";
+import { Game } from "./Game";
 function IsPoint(obj: any): obj is IPoint {
     if (typeof obj.x === "number") {
         return true
@@ -23,13 +24,13 @@ export default class GameRule {
      * @param teris 小方块组
      * @param center 中心点坐标
      */
-    static move(teris: SquareGroup, direction: Direction): boolean
-    static move(teris: SquareGroup, target: IPoint): boolean
-    static move(teris: SquareGroup, target: IPoint | Direction) {
+    static move(teris: SquareGroup, direction: Direction, exists?: SquareArr): boolean
+    static move(teris: SquareGroup, target: IPoint, exists?: SquareArr): boolean
+    static move(teris: SquareGroup, target: IPoint | Direction, exists?: SquareArr) {
         var result;
         if (IsPoint(target)) {
             result = target;
-            if (this.judgeDoundary(teris.shape, result)) {
+            if (this.judgeDoundary(teris.shape, result, exists)) {
                 return false
             }
             teris.center = result
@@ -57,7 +58,7 @@ export default class GameRule {
                     y: teris.center.y
                 }
             }
-            if (this.judgeDoundary(teris.shape, result)) {
+            if (this.judgeDoundary(teris.shape, result, exists)) {
                 return false
             } else {
                 teris.center = result;
@@ -67,17 +68,68 @@ export default class GameRule {
 
 
     }
-    static judgeDoundary(shape: IPoint[], center: IPoint) {
+    static judgeDoundary(shape: IPoint[], center: IPoint, exists?: SquareArr) {
         return shape.some(it => {
             let newIt = {
                 x: it.x + center.x,
                 y: it.y + center.y,
             }
             if (newIt.x >= 0 && newIt.x < GameRuleConfig.TerisSize.width && newIt.y >= 0 && newIt.y < GameRuleConfig.TerisSize.height) {
+                if (exists) {
+                    if (
+                        exists.some(({ point }) => {
+                            return (newIt.x === point.x && newIt.y === point.y)
+                        })
+                    ) {
+                        return true
+                    }
+                }
                 return false
             } else {
                 return true
             }
         })
+    }
+    /**
+     *  得到这一Y坐标下所有的方块
+     * @param exists 
+     * @param y 
+     */
+    static getLineSquare(exists: SquareArr, y: number) {
+        return exists.filter(sq => {
+            return sq.point.y === y
+        })
+    }
+    /**
+     * 删除连成一行的小方块
+     * @param exists 
+     */
+    static deleteSquares(exists: SquareArr) {
+        // 获取所有Y坐标
+        let squerY: number[] = exists.map(sq => sq.point.y)
+        let minY = Math.min(...squerY);
+        let maxY = Math.max(...squerY);
+        for (let y = minY; y <= maxY; y++) {
+            // 取消小方块显示
+            // 获取这一行的小方块
+            let sqs = this.getLineSquare(exists, y);
+            if (sqs.length === GameRuleConfig.TerisSize.width) {
+                sqs.forEach(it => {
+                    it.viewer?.remove()
+                    // console.log(exists);
+                    const index = exists.indexOf(it);
+                    exists.splice(index, 1);
+                })
+                exists.filter(sq => sq.point.y < y).forEach(test => {
+                    console.log(test.point)
+                    test.point = {
+                        x: test.point.x,
+                        y: test.point.y + 1
+                    }
+                    console.log(test.point)
+                })
+
+            }
+        }
     }
 }

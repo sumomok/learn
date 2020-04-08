@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": " webpack --mode=production",
-    "serve": " webpack-dev-server"
+    "serve": "  webpack-dev-server"
   },
   "dependencies": {
     "@types/node": "^13.9.8",
