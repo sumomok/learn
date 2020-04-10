@@ -1,0 +1,1 @@
+export interface IResult<T> { movies: T[], count: number, error: string[] }
