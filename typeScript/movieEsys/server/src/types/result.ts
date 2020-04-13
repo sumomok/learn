@@ -1,1 +1,1 @@
-export interface IResult<T> { movies: T[], count: number, error: string[] }
+export interface IResult<T> { data: T[], count: number, error: string[] }

@@ -7,7 +7,9 @@
  * @FilePath: \learn\typeScript\movieEsys\server\src\index.ts
  */
 import "reflect-metadata";
-import { MovieService } from "./services/MovieService";
+import Express from 'express';
+import { router } from "./routes/MovieRoute";
+import { router as UploadRouter } from './routes/UploadRoute'
 // 数据库处理
 // MovieModel.find().then(ms => {
 //     console.log(ms)
@@ -21,9 +23,9 @@ import { MovieService } from "./services/MovieService";
 //     areas: ["中国大陆"],
 //     timeLong: 2
 // };
-const m: any = {
-    name: "流浪地球",
-};
+// const m: any = {
+//     name: "流浪地球",
+// };
 // 将plain object转换为movie对象
 // const movie = plainToClass(Movie, m)
 // 开始验证
@@ -37,3 +39,13 @@ const m: any = {
 // MovieService.findById("5e8ee6394123d5201835dde1").then(result => {
 //     console.log(result);
 // })
+
+// 服务器测试
+const app = Express()
+// 使用postman进行测试
+app.use("/Upload", Express.static("public/upload"))
+app.use(Express.json());
+app.use("/api/movie", router)
+app.use("/api/upload", UploadRouter)
+
+app.listen(3000)
