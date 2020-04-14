@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-04-14 08:43:58
+ * @LastEditTime: 2020-04-14 17:19:06
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \learn\typeScript\movieEsys\client\src\types\interface.ts
+ */
 
 export interface IMovie {
     _id?: string
@@ -46,4 +54,7 @@ export const defaultState: IMovieState = {
     },
     count: 0,
     isLoading: false
+}
+export interface IRootState {
+    movie: IMovieState
 }

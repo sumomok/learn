@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
 
-export default class Home extends PureComponent {
+export default class EditMovie extends PureComponent {
     render() {
         return (
             <div>
-
+                EditMovie
             </div>
         )
     }

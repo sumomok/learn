@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react'
-
-export default class Home extends PureComponent {
+import { List } from '../../components'
+import { IMovieState } from '../../types/interface'
+export default class MovieList extends PureComponent<IMovieState> {
     render() {
         return (
             <div>
-
+                {/* <List></List> */}
             </div>
         )
     }
