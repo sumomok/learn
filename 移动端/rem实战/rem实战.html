@@ -1,0 +1,91 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-15 16:38:13
+ * @LastEditTime: 2020-04-15 17:31:20
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \learn\移动端\rem实战\rem实战.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0,user-scalable=no,minimum-scale=1,maximum-scale=1">
+    <link rel="stylesheet" href="./css/index.css">
+    <script>
+        (function (html, doc, defaultWidth) {
+            var nowWidth = html.clientWidth;
+            if (nowWidth >= defaultWidth) {
+                html.style.fontSize = "100px"
+            } else {
+                html.style.fontSize = 100 * (nowWidth / defaultWidth) + "px";
+            }
+        })(document.documentElement, document, 750)
+    </script>
+    <title>Document</title>
+</head>
+
+<body>
+    <header class="hearder">
+            <a href="#">北京市</a>
+            <div class="input">
+                <input type="text" placeholder="输入店铺、商品等">
+            </div>
+            <a href="#">我的</a>
+    </header>
+    <section class="banner">
+        <img src="./images/banner.jpg" alt="">
+    </section>
+    <nav class="clearFix">
+        <ul class="clearFix">
+            <li>
+                <img src="./images/circle_01.png" alt="">
+                <p>餐饮住宿</p>
+            </li>
+            <li>
+                <img src="./images/circle_02.png" alt="">
+                <p>汽车美容</p>
+            </li>
+            <li>
+                <img src="./images/circle_03.png" alt="">
+                <p>生活服务</p>
+            </li>
+            <li>
+                <img src="./images/circle_04.png" alt="">
+                <p>
+                    休闲娱乐
+                </p>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <img src="./images/circle_05.png" alt="">
+                <p>
+                    教育培训
+                </p>
+            </li>
+            <li>
+                <img src="./images/circle_06.png" alt="">
+                <p>
+                    家居建材
+                </p>
+            </li>
+            <li>
+                <img src="./images/circle_07.png" alt="">
+                <p>
+                    酒水饮料
+                </p>
+            </li>
+            <li>
+                <img src="./images/circle_08.png" alt="">
+                <p>
+                    婚纱婚庆
+                </p>
+            </li>
+        </ul>
+    </nav>
+</body>
+
+</html>

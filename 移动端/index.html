@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-04-08 16:22:04
- * @LastEditTime: 2020-04-13 16:44:15
+ * @LastEditTime: 2020-04-15 15:02:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \learn\移动端\index.html
@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-        content="width=device-width, initial-scale=1.0,user-scalable=no,minimum-scale=1,maximum-scale=1">
+        content="width=device-width, initial-scale=1.0,user-scalable=no,minimum-scale=1,maximum-scale=1" id="viewport">
     <title>Document</title>
     <style>
         body {
@@ -27,21 +27,38 @@
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
-        div {
-            width: 750px;
+        .box div {
+            width: 187.5px;
             height: 100px;
-            border: 1px solid #CCC;
+            float: left;
+        }
+        .box div:nth-child(1){
+            background-color: red;
+        }
+        .box div:nth-child(2){
             background-color: green;
         }
+        .box div:nth-child(3){
+            background-color: blue;
+        }
+        .box div:nth-child(4){
+            background-color: pink;
+        }
     </style>
+    <script>
+        (function () {
+
+        })()
+    </script>
 </head>
 
 <body>
-    <div></div>
-    <p>13034501962</p>
-    <p>13034501962</p>
-    <a href="#">test</a>
-    <input type="text">
+    <div class="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
 </body>
 
 </html>

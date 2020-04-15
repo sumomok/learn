@@ -1,0 +1,60 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-15 10:48:51
+ * @LastEditTime: 2020-04-15 15:09:27
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \learn\移动端\rem.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport">
+    <title>Document</title>
+    <script>
+        let html = document.documentElement;
+        let width = html.clientWidth;
+        console.log(width / 16);
+        html.style.fontSize = width / 12 + "px";
+        var curwidth = window.innerWidth;
+        // var targetwidth = 375;
+        // viewport缩放
+        // let scale = curwidth / targetwidth; 
+        // dpr缩放
+        // let scale = 1 / window.devicePixelRatio
+        // let result = "initial-scale=" + scale + ",user-scalable=no,minimum-scale=" + scale + ",maximum-scale=" + scale + "";
+        // document.getElementById("viewport").content = result;
+    </script>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        div {
+            background-color: greenyellow;
+            float: left;
+            width: 3rem;
+            height: 3rem;
+        }
+    </style>
+</head>
+
+<body>
+    1.元素适配的宽度（算出来的）
+    2. 元素在设计稿里的高度（量出来的）
+    3. 列数（一定条件下随便给）
+    4.一列的宽度（算出来的）
+    5. 元素实际站的列数（算出来）
+    只用rem的情况下  给双倍的css像素的图片情况下  先除以 dpr 然后再除以每列的宽 得出 占多少列，及rem的值是多少
+    <!-- <div class="box"> -->
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <!-- <div></div> -->
+    <!-- </div> -->
+</body>
+
+</html>
