@@ -1,10 +1,14 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent } from 'react';
+import { RouteComponentProps } from 'react-router';
 
-export default class EditMovie extends PureComponent {
+interface IParams {
+    id: string
+}
+export default class EditMovie extends PureComponent<RouteComponentProps<IParams>> {
     render() {
         return (
             <div>
-                EditMovie
+                {this.props.match.params.id}
             </div>
         )
     }

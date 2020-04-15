@@ -1,5 +1,5 @@
-import { IMovieState, defaultState } from "../../types/interface";
-import { MovieAction, SaveMoviesAction, DeleteActions, SetConditionAction, Setloading } from "../action/MovieAction";
+import { IMovieState, defaultState, SwitchType } from "../../types/interface";
+import { MovieAction, SaveMoviesAction, DeleteActions, SetConditionAction, Setloading, Change_Switch } from "../action/MovieAction";
 import { Reducer } from "react";
 
 
@@ -11,16 +11,21 @@ const saveMovie: Reducer<IMovieState, SaveMoviesAction> = (state, { payload, typ
     }
 }
 const DeleteReducer: Reducer<IMovieState, DeleteActions> = (state, { type, payload }): IMovieState => {
-    let newState = { ...state }
+    let newState = [...state.data]
 
-    let deleteMovie = newState.data.find(it => {
+    let deleteMovie = newState.find(it => {
         return it._id === payload
     })
+
     if (deleteMovie) {
-        let index = newState.data.indexOf(deleteMovie)
-        newState.data.splice(index, 1)
+        let index = newState.indexOf(deleteMovie)
+        newState.splice(index, 1)
+        console.log(newState)
     }
-    return newState
+    return {
+        ...state,
+        data: newState
+    }
 }
 const setLoading: Reducer<IMovieState, Setloading> = (state, { payload, type }): IMovieState => {
     return {
@@ -34,9 +39,24 @@ const setCondition: Reducer<IMovieState, SetConditionAction> = (state, { payload
         condition: payload.condition
     }
 }
-
+const changeSwitch: Reducer<IMovieState, Change_Switch> = (state, { payload, type }): IMovieState => {
+    let newState = [...state.data]
+    newState.forEach(it => {
+        if (it._id === payload.id) {
+            if (payload.type === SwitchType.isHot) {
+                it.isHot = payload.newState
+            } else if (payload.type === SwitchType.isClasic) {
+                it.isClasic = payload.newState
+            }
+        }
+    })
+    return {
+        ...state,
+        data: newState
+    }
+}
 export default function movies(state: IMovieState = defaultState, action: MovieAction) {
-    if (state) {
+    if (!state) {
         state = defaultState
     }
     switch (action.type) {
@@ -51,6 +71,8 @@ export default function movies(state: IMovieState = defaultState, action: MovieA
 
         case "set_loading":
             return setLoading(state, action)
+        case "Change_Switch":
+            return changeSwitch(state, action)
         default:
             return state
     }

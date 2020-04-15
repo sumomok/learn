@@ -6,8 +6,47 @@
  * @Description: In User Settings Edit
  * @FilePath: \learn\typeScript\movieEsys\client\src\components\Movie\PropsAndEvent.ts
  */
-import { IRootState } from "../../types/interface";
+import { IRootState, IMovieTableEvent } from "../../types/interface";
+import { Dispatch } from "react";
+import { MovieAction } from "../../redux/action/MovieAction";
 
-export function StoreToProps(state: IRootState) {
-    return state
+export function mapStateToProps(state: IRootState) {
+    return state.movie
+}
+export function mapDispatchToProps(dispatch: Dispatch<MovieAction>): IMovieTableEvent {
+    return {
+        onLoad: () => {
+            dispatch({
+                type: "Movie_Saga_Page", payload: null
+            })
+        },
+        onSwitchChange: (id, newState, type) => {
+            dispatch({
+                type: "Change_Switch",
+                payload: {
+                    id: id,
+                    type: type,
+                    newState
+                }
+            })
+            dispatch({
+                type: "Featch_Movie_Edit",
+                payload: {
+                    id: id
+                }
+            })
+        },
+        onDelete: id => {
+            dispatch({
+                type: "movie_delete",
+                payload: id
+            })
+            dispatch({
+                type: "Featch_Movie_Delete",
+                payload: {
+                    id: id
+                }
+            })
+        }
+    }
 }

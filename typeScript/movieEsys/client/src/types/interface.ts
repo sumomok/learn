@@ -6,7 +6,6 @@
  * @Description: In User Settings Edit
  * @FilePath: \learn\typeScript\movieEsys\client\src\types\interface.ts
  */
-
 export interface IMovie {
     _id?: string
     name: string
@@ -57,4 +56,15 @@ export const defaultState: IMovieState = {
 }
 export interface IRootState {
     movie: IMovieState
+}
+export interface IMovieTableEvent {
+    onLoad: () => void,
+    onSwitchChange: (id: string, newState: boolean, type: SwitchType) => void,
+    onDelete: (id: string) => void
+}
+
+export enum SwitchType {
+    isHot,
+    isClasic,
+
 }

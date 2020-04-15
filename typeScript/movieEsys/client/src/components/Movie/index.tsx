@@ -1,5 +1,5 @@
 import { MovieList as List } from './MovieList';
 import { connect } from 'react-redux';
-import { StoreToProps } from './PropsAndEvent';
+import { mapStateToProps, mapDispatchToProps } from './PropsAndEvent';
 
-export const MovieList = connect(StoreToProps)(List)
+export const MovieList = connect(mapStateToProps, mapDispatchToProps)(List)

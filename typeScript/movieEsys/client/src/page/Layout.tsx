@@ -3,7 +3,8 @@ import { Route } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { Layout as AntdLayout, Menu, Space, Button, } from 'antd'
 import Home from './Movie/Home';
-import MovieList from './Movie/MovieList';
+// import MovieList from './Movie/MovieList';
+import { List } from '../components/index'
 import EditMovie from './Movie/EditMovie';
 import AddMovie from './Movie/AddMovie';
 import '../css/Movie/layout.scss';
@@ -47,9 +48,6 @@ export const Layout: React.FC = function () {
                             <Menu.Item key="3">
                                 <NavLink to="/addMovie">添加电影</NavLink>
                             </Menu.Item>
-                            <Menu.Item key="4">
-                                <NavLink to="/editMovie">修改电影</NavLink>
-                            </Menu.Item>
                         </SubMenu>
 
                     </Menu>
@@ -62,9 +60,9 @@ export const Layout: React.FC = function () {
                     }
                 }>
                     <Route path="/" exact component={Home}></Route>
-                    <Route path="/movieList" exact component={MovieList}></Route>
+                    <Route path="/movieList" exact component={List}></Route>
                     <Route path="/addMovie" exact component={AddMovie}></Route>
-                    <Route path="/editMovie" exact component={EditMovie}></Route>
+                    <Route path="/editMovie/:id" component={EditMovie}></Route>
                 </Content>
             </AntdLayout>
         </AntdLayout>

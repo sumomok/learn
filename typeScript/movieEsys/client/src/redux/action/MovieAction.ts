@@ -1,4 +1,4 @@
-import { IAction, IMovie, IMovieCondition } from "../../types/interface";
+import { IAction, IMovie, IMovieCondition, SwitchType } from "../../types/interface";
 
 export type SaveMoviesAction = IAction<"movie_save", {
     movies: IMovie[]
@@ -50,7 +50,7 @@ export type Featch_Movie_Add = IAction<"Movie_Saga_Add", {
 }>
 export type Featch_Movie_Edit = IAction<"Featch_Movie_Edit", {
     id: string,
-    params: IMovie
+    params?: IMovie
 }>
 export type Featch_Movie_Delete = IAction<"Featch_Movie_Delete", {
     id: string
@@ -59,6 +59,12 @@ export type Featch_Movie_FindById = IAction<"Featch_Movie_FindById", {
     id: string
 }>
 
+export type Change_Switch = IAction<"Change_Switch", {
+    id: string,
+    type: SwitchType,
+    newState: boolean
+}>
 
 
-export type MovieAction = SaveMoviesAction | Setloading | SetConditionAction | DeleteActions | Featch_Movie_Page | Featch_Movie_Add | Featch_Movie_Edit | Featch_Movie_Delete | Featch_Movie_FindById
+
+export type MovieAction = SaveMoviesAction | Setloading | SetConditionAction | DeleteActions | Featch_Movie_Page | Featch_Movie_Add | Featch_Movie_Edit | Featch_Movie_Delete | Featch_Movie_FindById | Change_Switch
