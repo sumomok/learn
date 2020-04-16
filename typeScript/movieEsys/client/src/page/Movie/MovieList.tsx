@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react'
-import { List } from '../../components'
+import { List } from '../../components/index'
 import { IMovieState } from '../../types/interface'
-export default class MovieList extends PureComponent<IMovieState> {
-    render() {
-        return (
-            <div>
-                {/* <List></List> */}
-            </div>
-        )
-    }
-}
+// import {} from 'react-redux'
+// export default class MovieList extends PureComponent<IMovieState> {
+//     render() {
+//         return (
+//             <List>
+
+//                 </List>
+//         )
+//     }
+// }
