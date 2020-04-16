@@ -1,0 +1,73 @@
+@import "./des2vw.scss";
+$designWidth:1080;
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+@media screen and (min-width:1080px){
+    body{
+        width: $designWidth +px;
+    }
+}
+html{
+    font-size: 9.259259259259261vw ;
+    body{
+        font-size: 0;
+        -webkit-touch-callout: none;
+        -webkit-text-size-adjust: 100%;
+        -webkit-user-select: none;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f5f5f5;
+        .clearFix::after{
+            content: "";
+            clear: both;
+        }
+        .red{
+            color:#d12b4d
+        }
+        .left{
+            float: left;
+        }
+        .right{
+            float: right;
+        }
+    }
+}
+
+.heard{
+    width: des2vw(1080);
+    height: des2vw(176);
+    margin: 0 auto;
+    background-color: #46ae00;
+    .logo{
+        width: des2vw(488);
+        height: des2vw(150);
+        background-size: cover;
+    }
+    .icon{
+        width: des2vw(88);
+        height: des2vw(8x8);
+        margin-top: des2vw(50);
+
+    }
+    .search{
+        margin-right: des2vw(70);
+    }
+    .iconDiv{
+        margin-right: des2vw(42);
+    }
+}
+.ad{
+    margin: 0 auto;
+    padding: 0;
+    img{
+        width: des2vw(1080);
+        height: des2vw(541);
+    }
+}
+.list{
+    width: des2vw(1080);
+    height: des2vw(360);
+}

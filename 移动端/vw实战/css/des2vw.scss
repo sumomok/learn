@@ -1,0 +1,3 @@
+@function des2vw($page){
+    @return 100 *($page/$designWidth) + vw;
+}
