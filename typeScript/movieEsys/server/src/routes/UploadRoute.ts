@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
         cb(null, `${time}${ext}`)
     }
 })
-const extArr = ['.img', '.png', '.gif', '.bpm']
+const extArr = ['.img', '.png', '.gif', '.bpm', '.jpg']
 const upload = multer({
     storage,
     limits: {
@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
         if (error) {
             HandleRequest.sendResult(null, error.message ? error.message : error, res, false)
         } else {
-            HandleRequest.sendResult("上传成功", null, res, true)
+            HandleRequest.sendResult({ path: "/Upload/" + req.file.filename }, null, res, true)
         }
     })
 })

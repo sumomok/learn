@@ -61,6 +61,8 @@ export interface IMovieTableEvent {
     onLoad: () => void,
     onSwitchChange: (id: string, newState: boolean, type: SwitchType) => void,
     onDelete: (id: string) => void
+    onPageChange: (condition: IMovieCondition) => void,
+    onConditionChange: (condition: IMovieCondition) => void
 }
 
 export enum SwitchType {
@@ -68,3 +70,4 @@ export enum SwitchType {
     isClasic,
 
 }
+export interface IResult<T> { data: T[], count: number, error: string[] }

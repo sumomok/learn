@@ -1,14 +1,38 @@
 import React, { PureComponent } from 'react'
 import { IMovieState, IMovie, IMovieTableEvent, SwitchType } from '../../types/interface';
-import { Table, Switch, Button, Popconfirm } from 'antd'
+import { Table, Switch, Button, Popconfirm, Input } from 'antd'
 import { ColumnProps, TablePaginationConfig } from 'antd/lib/table';
-import defaultImg from '../../assets/1586952373.jpg'
+import defaultImg from '../../assets/1586952373.jpg';
 import { NavLink } from 'react-router-dom';
+import { SearchOutlined } from '@ant-design/icons';
 
 
 export class MovieList extends PureComponent<IMovieState & IMovieTableEvent>{
     componentDidMount() {
         this.props.onLoad()
+    }
+    private getSearch(params: object) {
+        return (
+            <div style={{ padding: 8 }}>
+                <Input
+                    value={this.props ? this.props.condition.key : ""}
+                    onChange={e => { this.props.onConditionChange({ key: e.target.value, page: this.props.condition.page, limit: this.props.condition.limit }) }}
+                    style={{ width: 188, marginBottom: 8, display: 'block' }}
+                />
+                <Button
+                    type="primary"
+                    icon={<SearchOutlined />}
+                    size="small"
+                    style={{ width: 90, marginRight: 8 }}
+                    onClick={() => { this.props.onPageChange(this.props.condition) }}
+                >
+                    搜索
+                </Button>
+                <Button size="small" style={{ width: 90 }} onClick={() => { this.props.onConditionChange({ key: "", page: this.props.condition.page, limit: this.props.condition.limit }) }}>
+                    重置
+                </Button>
+            </div>
+        )
     }
     private getColumns(): ColumnProps<IMovie>[] {
         return [
@@ -36,6 +60,8 @@ export class MovieList extends PureComponent<IMovieState & IMovieTableEvent>{
             {
                 title: "名称",
                 dataIndex: "name",
+                filterDropdown: this.getSearch.bind(this),
+                filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
             },
             {
                 title: "地区",
@@ -121,7 +147,11 @@ export class MovieList extends PureComponent<IMovieState & IMovieTableEvent>{
                 pageSize: this.props.condition.limit,
                 total: this.props.count,
                 onChange: page => {
-                    
+                    this.props.onPageChange({
+                        page: page,
+                        limit: this.props.condition.limit,
+                        key: ""
+                    })
                 }
             }
         }
@@ -130,7 +160,7 @@ export class MovieList extends PureComponent<IMovieState & IMovieTableEvent>{
         return (
             <Table rowKey="_id" pagination={
                 this.getPagination()
-            } dataSource={this.props.data} columns={this.getColumns()}></Table>
+            } dataSource={this.props.data} columns={this.getColumns()} loading={this.props.isLoading} ></Table>
         )
     }
 }

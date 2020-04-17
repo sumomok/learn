@@ -47,6 +47,28 @@ export function mapDispatchToProps(dispatch: Dispatch<MovieAction>): IMovieTable
                     id: id
                 }
             })
+        },
+        onPageChange: condition => {
+            dispatch({
+                type: "movie_setCondition",
+                payload: {
+                    condition
+                }
+            })
+            dispatch({
+                type: "Movie_Saga_Page",
+                payload: {
+                    condition
+                }
+            })
+        },
+        onConditionChange: condition => {
+            dispatch({
+                type: "movie_setCondition",
+                payload: {
+                    condition
+                }
+            })
         }
     }
 }

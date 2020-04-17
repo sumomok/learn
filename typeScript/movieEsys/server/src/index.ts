@@ -43,7 +43,7 @@ import { router as UploadRouter } from './routes/UploadRoute'
 // 服务器测试
 const app = Express()
 // 使用postman进行测试
-app.use("/Upload", Express.static("public/upload"))
+app.use("/Upload", Express.static("../public/upload"))
 app.use(Express.json());
 app.use("/api/movie", router)
 app.use("/api/upload", UploadRouter)
