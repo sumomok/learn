@@ -1,0 +1,76 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-23 09:47:23
+ * @LastEditTime: 2020-04-23 15:27:42
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \learn\vue\新Vue\渲染原理\index.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{arr[0]}}
+    </div>
+    <script type="module">
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                hello: "hello world",
+                arr:[{a:"1",b:"2"}]
+            }
+        })
+        window.vm = vm
+        vm.hello = 'test'
+        vm.$nextTick(()=>{
+            console.log(document.getElementById("app").innerText + "nextTick")
+        })
+        // let weirenwu = new Promise((res,rej)=>{
+        //     res(document.getElementById("app").innerText+ "Promise") //hello worldPromise 在创建promise时 内部代码是同步的
+        // })
+        // 同步任务、异步任务（宏队列，微队列，event loop事件环）
+        // 如果渲染在同步任务中，则下列语句既能获取到已经渲染的数据
+        console.log(document.getElementById("app").innerText + "同步任务"); // 输出：hello world同步任务->vue开发环境提示
+        // 证明 该任务不是同步任务
+        //微任务代码位置是否会产生影响？
+        // 输出结果 ：hello world同步任务-> hello world微任务1->hello world微任务2->vue开发环境提示->test宏任务
+        // weirenwu.then(e=>{console.log(e);
+        //     console.log(document.getElementById("app").innerText + "Promise")
+        // })
+        testrenwu()
+        // 在宏任务中是否能获得渲染完毕的内容
+        setTimeout(() => {
+            console.log(document.getElementById("app").innerText + "宏任务"); //输出：hello world微任务
+        }, 0)
+        let weirenwu = new Promise((res,rej)=>{
+            res(document.getElementById("app").innerText+ "Promise") //hello worldPromise 在创建promise时 内部代码是同步的 已经将当时document的值推向了微任务的then
+        })
+        // 那么 微任务呢？
+        // 输出结果 ：hello world同步任务-> hello world微任务->vue开发环境提示->test宏任务
+
+        weirenwu.then(e=>{console.log(document.getElementById("app").innerText + "Promise");console.log(e)})
+        function testrenwu(){
+            console.log(document.getElementById("app").innerText + "函数")
+        }
+
+        //仅可在IE下使用，ie情况下 vue会将渲染时机放到 test setImmediate中 宏任务中不再承担渲染任务
+        // hello world同步任务->hello world 宏任务->test setImmediate()
+        // window.setImmediate(function () {
+        //     console.log(document.getElementById("app").innerText + "setImmediate");
+        // }, 0)
+        // setTimeout(function(){
+        //     console.log(document.getElementById("app").innerText + "宏任务");
+        // }
+        // , 0)
+    </script>
+</body>
+
+</html>

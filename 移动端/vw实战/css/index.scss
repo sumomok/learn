@@ -6,11 +6,6 @@ $designWidth:1080;
     list-style: none;
     text-decoration: none;
 }
-@media screen and (min-width:1080px){
-    body{
-        width: $designWidth +px;
-    }
-}
 html{
     font-size: 9.259259259259261vw ;
     body{
@@ -35,8 +30,23 @@ html{
         }
     }
 }
-
+@media screen and (min-width:750px){
+    html{
+        font-size: 69.445px;
+    }
+}
+.wrapper{
+    overflow: auto;
+    position: absolute;
+    top:des2vw(176);
+    bottom: des2vw(180);
+    -webkit-overflow-scrolling: touch;
+}
 .heard{
+    position: fixed;
+    z-index: 999;
+    top:0;
+    left: 0;
     width: des2vw(1080);
     height: des2vw(176);
     margin: 0 auto;
@@ -69,5 +79,81 @@ html{
 }
 .list{
     width: des2vw(1080);
-    height: des2vw(360);
+    height: des2vw(232);
+    padding: des2vw(64) 0 ;
+    .item{
+        float: left;
+        width: des2vw(182);
+        height: des2vw(224);
+        font-size: des2vw(40);
+        text-align: center;
+        margin-left: des2vw(78) ;
+        img{
+            width: des2vw(182);
+            height:des2vw(176)
+        }
+    }
+}
+.ad1 {
+    width: des2vw(1080);
+    display: flex;
+    justify-content: space-between;
+    .logerad {
+        img{
+            width: des2vw(450);
+            height: des2vw(642);
+        }
+    }
+    .sortad{
+        img{
+            width: des2vw(572);
+            height: des2vw(312);
+        }
+    } 
+}
+.ad-left{
+    .logerad{
+        margin:  des2vw(20) des2vw(10) des2vw(10) des2vw(20);
+    }
+    .sortad{
+        margin: des2vw(10);
+        img:nth-of-type(1){
+            margin-bottom: des2vw(20);
+        }
+    }
+}
+.ad-right{
+    .logerad{
+        // padding: 10;
+        margin:  des2vw(10) des2vw(20) des2vw(20) des2vw(10);
+    }
+    .sortad{
+        margin:  des2vw(10) des2vw(10) des2vw(20) des2vw(20);
+        img:nth-of-type(1){
+            margin-bottom: des2vw(20);
+        }
+    }
+}
+
+footer{
+    width: des2vw(1080);
+    height: des2vw(180);
+    position: fixed;
+    z-index: 999;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff;
+    .item:nth-of-type(1){
+        margin-left: des2vw(68);
+    }
+    .item{
+        float: left;
+        margin-right: des2vw(90);
+    }
+    img{
+        width: des2vw(160);
+        height: des2vw(180);
+    }
 }
