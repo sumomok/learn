@@ -10,6 +10,7 @@ import "reflect-metadata";
 import Express from 'express';
 import { router } from "./routes/MovieRoute";
 import { router as UploadRouter } from './routes/UploadRoute'
+import history from 'connect-history-api-fallback';
 // 数据库处理
 // MovieModel.find().then(ms => {
 //     console.log(ms)
@@ -43,6 +44,8 @@ import { router as UploadRouter } from './routes/UploadRoute'
 // 服务器测试
 const app = Express()
 // 使用postman进行测试
+app.use(history());
+app.use("/", Express.static("public/build"))
 app.use("/Upload", Express.static("../public/upload"))
 app.use(Express.json());
 app.use("/api/movie", router)

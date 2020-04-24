@@ -32,8 +32,8 @@ router.post("/add", async (req, res) => {
             error = result.join(',')
         }
         HandleRequest.sendResult(result, error, res, true)
-    } catch {
-        HandleRequest.sendResult(null, "参数错误，请重试", res, false);
+    } catch (e) {
+        HandleRequest.sendResult(null, "参数错误，请重试" + e, res, false);
     }
 })
 router.put("/:id", async (req, res) => {

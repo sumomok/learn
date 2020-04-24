@@ -7,8 +7,8 @@ const movieSchema = new Mongoose.Schema<IMovie>({
     areas: [String],
     timeLong: Number,
     isClasic: Boolean,
-    description: Boolean,
-    poster: Boolean,
+    description: String,
+    poster: String,
     isHot: Boolean
 }, {
     versionKey: false,

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .clip-shape {
+            width: 200px;
+            height: 100px;
+            outline: 999px solid rgba(0, 0, 0, 0.7);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        * {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clip-shape">
+    </div>
+    <img src="./img/p2566870171.png" alt="">
+</body>
+<script>
+    async function test123() {
+        throw new Error("123123")
+    }
+    async function test1234() {
+        try {
+            const result = await test123()
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    test1234()
+
+</script>
+
+</html>

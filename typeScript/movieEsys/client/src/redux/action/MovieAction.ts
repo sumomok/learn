@@ -46,17 +46,20 @@ export type Featch_Movie_Page = IAction<"Movie_Saga_Page", null | {
     condition: IMovieCondition
 }>
 export type Featch_Movie_Add = IAction<"Movie_Saga_Add", {
-    params: IMovie
+    params: IMovie,
+    cb: () => void
 }>
 export type Featch_Movie_Edit = IAction<"Featch_Movie_Edit", {
     id: string,
-    params?: IMovie
+    params?: IMovie,
+    cb: () => void
 }>
 export type Featch_Movie_Delete = IAction<"Featch_Movie_Delete", {
     id: string
 }>
 export type Featch_Movie_FindById = IAction<"Featch_Movie_FindById", {
-    id: string
+    id: string,
+    cb: (data: IMovie) => void
 }>
 
 export type Change_Switch = IAction<"Change_Switch", {

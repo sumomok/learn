@@ -64,7 +64,11 @@ export interface IMovieTableEvent {
     onPageChange: (condition: IMovieCondition) => void,
     onConditionChange: (condition: IMovieCondition) => void
 }
-
+export interface IMovieForm {
+    onSubmit: (params: IMovie, cb: () => void) => void
+    onSearchById: (id: string, cb: (data: IMovie) => void) => void
+    onEdit: (params: IMovie, cb: () => void) => void
+}
 export enum SwitchType {
     isHot,
     isClasic,

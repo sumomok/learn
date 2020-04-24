@@ -1,4 +1,4 @@
-import { IsNotEmpty, MinLength, ArrayMinSize, IsInt, Min, Max, IsArray, validate } from 'class-validator'
+import { IsNotEmpty, MinLength, ArrayMinSize, IsInt, Min, Max, IsArray, validate, IsString } from 'class-validator'
 import { Type, plainToClass } from 'class-transformer';
 import { BaseModel } from './baseModel';
 export class Movie extends BaseModel {
@@ -27,16 +27,20 @@ export class Movie extends BaseModel {
     @Type(() => Number)
     public timeLong: number;
 
+    @Type(() => String)
+    public description?: string;
+
+    @Type(() => String)
+    public poster?: string;
+
     @IsNotEmpty({ message: "是否热映不能为空" })
     @Type(() => Boolean)
     public isHot: boolean = false;
+
     @IsNotEmpty({ message: "是否经典影片不能为空" })
     @Type(() => Boolean)
     public isClasic: boolean = false;
-    @Type(() => String)
-    public description?: string;
-    @Type(() => String)
-    public poster?: string;
+
     static transform(plainObject: object): Movie {
         return super.basetransform(Movie, plainObject)
     }

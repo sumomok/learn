@@ -6,7 +6,7 @@
  * @Description: In User Settings Edit
  * @FilePath: \learn\typeScript\movieEsys\client\src\components\Movie\PropsAndEvent.ts
  */
-import { IRootState, IMovieTableEvent } from "../../types/interface";
+import { IRootState, IMovieTableEvent, IMovieForm } from "../../types/interface";
 import { Dispatch } from "react";
 import { MovieAction } from "../../redux/action/MovieAction";
 
@@ -32,7 +32,8 @@ export function mapDispatchToProps(dispatch: Dispatch<MovieAction>): IMovieTable
             dispatch({
                 type: "Featch_Movie_Edit",
                 payload: {
-                    id: id
+                    id: id,
+                    cb: () => { }
                 }
             })
         },
@@ -70,5 +71,38 @@ export function mapDispatchToProps(dispatch: Dispatch<MovieAction>): IMovieTable
                 }
             })
         }
+    }
+}
+export function mapDispatchToPropsToFrom(dispatch: Dispatch<MovieAction>): IMovieForm {
+    return {
+        onSubmit(params, cb) {
+            return dispatch({
+                type: "Movie_Saga_Add",
+                payload: {
+                    params,
+                    cb
+                }
+            })
+        },
+        onSearchById(params, cb) {
+            return dispatch({
+                type: "Featch_Movie_FindById",
+                payload: {
+                    id: params,
+                    cb
+                }
+            })
+        },
+        onEdit(params, cb) {
+            return dispatch({
+                type: "Featch_Movie_Edit",
+                payload: {
+                    id: params._id as string,
+                    params: params,
+                    cb
+                }
+            })
+        }
+
     }
 }

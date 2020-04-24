@@ -42,7 +42,7 @@ export class MovieList extends PureComponent<IMovieState & IMovieTableEvent>{
                 render: poster => {
                     if (poster) {
                         return (
-                            <img src={defaultImg} alt="" style={{
+                            <img src={poster} alt="" style={{
                                 width: 30,
                                 height: 50
                             }} />

@@ -3,7 +3,6 @@ import { Route } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { Layout as AntdLayout, Menu, Space, Button, } from 'antd'
 import Home from './Movie/Home';
-// import MovieList from './Movie/MovieList';
 import { List } from '../components/index'
 import EditMovie from './Movie/EditMovie';
 import AddMovie from './Movie/AddMovie';

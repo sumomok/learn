@@ -6,7 +6,7 @@ import { IResult } from "../types/result";
 export class MovieService {
     public static async add(movie: Movie): Promise<IMovie | string[]> {
         // 1.类型转换
-        const m = Movie.transform(movie)
+        const m = Movie.transform(movie);
         // 2.数据验证
         const result = await m.validateThis();
         if (result.length > 0) {

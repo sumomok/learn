@@ -3,6 +3,7 @@ import { ISearchCondition, IMovie, IRequestResultByPage, IRootState } from '../.
 import { RequestMovie } from '../../services/MovieService'
 import { SaveMoviesAction, Featch_Movie_Add, Featch_Movie_Edit, Featch_Movie_FindById, DeleteActions } from '../action/MovieAction'
 import { loading } from './loadingSaga'
+import { message } from 'antd'
 export function* MovieSaga() {
     yield takeEvery("Movie_Saga_Page", function* () {
         yield* loading(true)
@@ -17,7 +18,8 @@ export function* MovieSaga() {
             type,
             payload: {
                 id: payload.id,
-                params: payload.params ? payload.params : store.movie.data[store.movie.data.findIndex((it => it._id === payload.id))]
+                params: payload.params ? payload.params : store.movie.data[store.movie.data.findIndex((it => it._id === payload.id))],
+                cb: payload.cb
             }
         })
     })
@@ -32,15 +34,47 @@ function* MovieSagaFindByPage(params: ISearchCondition) {
 }
 function* MovieSagaAdd(action: Featch_Movie_Add) {
     yield* loading(true)
-    yield apply(null, RequestMovie.add, [action.payload.params]);
+    try {
+        const result = yield apply(null, RequestMovie.add, [action.payload.params]);
+        if (result.Success) {
+            yield apply(null, message.success, ['添加成功', action.payload.cb])
+        } else {
+            yield apply(null, message.error, ['添加失败', function () { console.log(result.error) }])
+        }
+    } catch (error) {
+        yield apply(null, message.error, ['添加失败', function () { console.log(error) }])
+    }
+
 }
 function* MovieSagaEdit(action: Featch_Movie_Edit) {
-    if (action.payload.params)
-        yield apply(null, RequestMovie.edit, [action.payload.id, action.payload.params]);
+    if (action.payload.params) {
+        try {
+            const result = yield apply(null, RequestMovie.edit, [action.payload.id, action.payload.params]);
+            if (result.Success) {
+                console.log(action.payload.cb)
+                yield apply(null, message.success, ['修改成功', action.payload.cb])
+            } else {
+                yield apply(null, message.error, ['添加失败', function () { console.log(result.error) }])
+            }
+        } catch (error) {
+            yield apply(null, message.error, ['添加失败', function () { console.log(error) }])
+        }
+
+    }
 }
 function* MovieSagaFindById(action: Featch_Movie_FindById) {
     yield* loading(true)
-    yield apply(null, RequestMovie.findById, [action.payload.id]);
+    try {
+        const result = yield apply(null, RequestMovie.findById, [action.payload.id]);
+        if (result.Success) {
+            yield apply(null, action.payload.cb, [result.Data])
+        } else {
+            yield apply(null, message.error, ['获取数据失败', function () { console.log(result.error) }])
+        }
+    } catch (error) {
+        yield apply(null, message.error, ['获取数据失败', function () { console.log(error) }])
+    }
+
 }
 function* MovieSagaDelet(action: Featch_Movie_FindById) {
     yield* loading(true)

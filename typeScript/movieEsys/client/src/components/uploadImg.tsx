@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react'
 import { Upload, Modal } from 'antd'
 import { UploadFile, RcCustomRequestOptions } from 'antd/lib/upload/interface'
 interface uploadProps {
-    value: string,
-    onUpload: (newUrl: RcCustomRequestOptions | undefined) => void
+    value?: string,
+    onUpload?: (newUrl: RcCustomRequestOptions | undefined) => void
 }
 interface AddMovieState {
     isShow: boolean
@@ -47,10 +47,12 @@ export default class uploadImg extends PureComponent<uploadProps> {
                     accept="'.img,.png,.gif,.bpm,.jpg"
                     fileList={this.getfileList()}
                     customRequest={e => {
-                        this.props.onUpload(e);
+                        if (this.props.onUpload)
+                            this.props.onUpload(e);
                     }}
                     onRemove={() => {
-                        this.props.onUpload(undefined)
+                        if (this.props.onUpload)
+                            this.props.onUpload(undefined)
 
                     }
                     }
