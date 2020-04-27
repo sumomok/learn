@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- <div v-myshow="isShow">这是一个需要隐藏的组件</div> -->
+        <!-- <button v-myon:click="handleclick" id="btn">test</button> -->
+        <input type="text" v-myModel="inputValue">
+    </div>
+    <script>
+        //
+        Vue.directive("myshow", {
+            bind(el, bind, vnode, oldVnode) {
+                if (bind.value) {
+                    el.style.display = "block";
+                } else {
+                    el.style.display = "none";
+                }
+                console.log(el)
+                console.log(bind)
+            },
+            inserted(el, bind, vnode, oldVnode) {
+
+            },
+            updated() {
+
+            },
+            componentUpdated(el, bind, vnode, oldVnode) {
+                if (bind.value) {
+                    el.style.display = "block";
+                } else {
+                    el.style.display = "none";
+                }
+            },
+            unbind() {
+
+            }
+        })
+
+        Vue.directive("myEvent", {
+            bind(el, bind) {
+                el.addEventListener(bind.arg, bind.value)
+            },
+            updated(el, bind) {
+                el.addEventListener(bind.arg, bind.value)
+            }
+        })
+
+
+        Vue.directive("mymodel", {
+            bind(el, bind, vnode) {
+                console.log(el)
+                console.log(vnode)
+                el.value = bind.value
+                el.addEventListener("input", function (e) {
+                    vnode.context.inputValue = e.target.value
+                })
+            },
+            componentUpdated(el, bind) {
+                console.log(el)
+                el.value = bind.value
+            }
+        })
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                isShow: false,
+                inputValue: "rtest"
+            },
+            methods: {
+                handleclick() {
+                    console.log("test")
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+
+        <button v-for="(page,index) in cmp" @click="switchCmp = page.content">
+            {{page.name}}
+        </button>
+        <keep-alive>
+            <component :is="switchCmp"></component>
+        </keep-alive>
+    </div>
+    <script>
+        Vue.component("test2", {
+            created() {
+                this.switchCmp = this.cmp[0].content
+            },
+            data() {
+                return {
+                    switchCmp: "",
+                    cmp: [{
+                        name: "test21",
+                        content: {
+                            template: `
+                            <div>
+                                test21
+                            </div>
+                        `
+                        }
+                    },
+                    {
+                        name: "test22",
+                        content: {
+                            template: `
+                            <div>
+                                test22
+                            </div>
+                        `
+                        }
+                    }]
+                }
+            },
+            template: `
+            <div>
+                <button v-for="(page,index) in cmp" @click="switchCmp = page.content">
+                    {{page.name}}
+                </button>
+            <keep-alive>
+                <component :is="switchCmp" />
+            </keep-alive>            
+            </div>
+
+            `
+        })
+        Vue.component("test1", {
+            created() {
+                this.switchCmp = this.cmp[0].content
+            },
+            data() {
+                return {
+                    switchCmp: "",
+                    cmp: [{
+                        name: "test1",
+                        content: {
+                            template: `
+                            <div>
+                            test1
+                            </div>
+                        `
+                        }
+                    },
+                    {
+                        name: "test2",
+                        content: {
+                            template: `
+                            <div>
+                            test2
+                            </div>
+                        `
+                        }
+                    }]
+                }
+            },
+            template: `
+            <div>
+                <button v-for="(page,index) in cmp" @click="switchCmp = page.content">
+                    {{page.name}}
+                </button>
+                <component :is="switchCmp" />
+            </div>            
+            `
+        })
+        const vm = new Vue({
+            el: "#app",
+            created() {
+                this.switchCmp = this.cmp[0].content
+            },
+            data: {
+                switchCmp: "",
+                cmp: [{
+                    name: "test1",
+                    content: "test1"
+                },
+                {
+                    name: "test2",
+                    content: "test2"
+                }]
+            }
+        })
+
+        for (var i = 0; i < 5; i++) {
+            setTimeout(
+                ((i) => { console.log(i); return () => { console.log(i) } })(i),
+                5000
+            )
+        }
+    </script>
+</body>
+
+</html>

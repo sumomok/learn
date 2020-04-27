@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div id="timerout">
+    <div id="qr">
     </div>
     <div id="app">
         <test-cmp>
@@ -30,6 +30,7 @@
     </div>
 </body>
 <script>
+    $("#qr").qrcode()
     Vue.component("test-cmp", {
         data() {
             return {
