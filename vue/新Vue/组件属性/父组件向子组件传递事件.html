@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <test-cmp @handleclick="handleclick" :test.sync="test"></test-cmp>
+        <button @click="handleclick">触发事件</button>
+    </div>
+    <script>
+        Vue.component("test-cmp", {
+            props: {
+                value: String
+            },
+            mounted() {
+                console.log(this.$attrs)
+                console.log(this.$listeners)
+            },
+            template: `
+                <label>
+                <input :value="this.$attrs.test" :input = "this.$listeners['updata:test']" />
+                </label>
+            `,
+            inheritAttrs: false
+        })
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                test: "name"
+            },
+            methods: {
+                handleclick() {
+                    console.log("test")
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{count}}
+        {{handleClick}}
+        <button @click="handleClick">父级</button>
+        <child-cmp :count="count" :chageCount="handleClick"></child-cmp>
+    </div>
+    <script>
+        Vue.component("child-cmp", {
+            props: {
+                count: {
+                    type: Number,
+                    required: true,
+                },
+                chageCount: {
+                    type: Function,
+                    // required: true
+                }
+            },
+            data: function () {
+                console.log(this.count);
+                return {
+                    childcount: this.count,
+
+                }
+            },
+            template: `
+                <div>
+                                    {{childcount}}
+                    <button @click="handleChildClick">子级</button>
+                </div>
+
+                `,
+            methods: {
+                handleChildClick() {
+                    this.chageCount()
+                }
+            }
+        })
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                count: 0
+            },
+            methods: {
+                handleClick() {
+                    this.count++
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

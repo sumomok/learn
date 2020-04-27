@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.5.0/jquery.js"></script>
+    <script src="./countDown.js"></script>
+    <script src="./qrcode.js"></script>
+    <script src="./jquery.qrcode.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="timerout">
+    </div>
+    <div id="app">
+        <test-cmp>
+            <template v-slot:heard="test">
+                {{test.name}}
+            </template>
+            <template v-slot:main>
+                这是插槽内容主区域
+            </template>
+            <template v-slot:default>
+                这是插槽内容默认
+            </template>
+        </test-cmp>
+    </div>
+</body>
+<script>
+    Vue.component("test-cmp", {
+        data() {
+            return {
+                name: "123123"
+            }
+        },
+        template: `
+            <div>
+                <slot></slot>
+                <slot name="heard"></slot>
+                <slot name="main"></slot>
+            </div>
+        `
+    })
+    const vm = new Vue({
+        el: "#app",
+
+    })
+
+</script>
+
+</html>
