@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "@types/node": "^13.13.4"
+  },
+  "scripts": {
+    "start": "node index"
+  }
+}
