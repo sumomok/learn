@@ -4,7 +4,7 @@ export default class SSCard extends PureComponent {
     render() {
         return (
             <div>
-                
+                SSCard
             </div>
         )
     }

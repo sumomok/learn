@@ -4,7 +4,7 @@ export default class IDCard extends PureComponent {
     render() {
         return (
             <div>
-                
+                IDCard
             </div>
         )
     }

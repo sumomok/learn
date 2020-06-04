@@ -1,0 +1,98 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Visual Studio 6.0">
+<TITLE></TITLE>
+
+<SCRIPT LANGUAGE=javascript FOR=IDCModule EVENT=QuitRead(OutMsg)>
+<!--
+ LabelEvent.innerText = '收到事件'+OutMsg;
+//-->
+</SCRIPT>
+
+</HEAD>
+<BODY>
+
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浪潮集团金融事业部</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  人寿二代证测试工具</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</p>
+<hr>
+<p>&nbsp; </p>
+<p>&nbsp;</p>
+<p> 
+  <script language="Javascript">
+var iRet;
+
+function Open(){
+
+	iRet=IDCModule.OpenDevice;	
+
+	LabelCanEBC.innerText = 'OpenDevice '+iRet;
+
+}
+
+function Close(){
+
+	iRet=IDCModule.CloseDevice;	
+
+	LabelCanEBC.innerText = 'CloseDevice '+iRet;
+}
+
+function AcceptAndRead(){
+
+	iRet=IDCModule.AcceptAndRead(15);	
+
+	LabelCanEBC.innerText = 'AcceptAndRead '+iRet;
+	LabelEvent.innerText = '';
+}
+
+function CancelRead(){
+
+	IDCModule.CancelAcceptAndRead();
+}
+
+function GetInfo(){
+
+	iRet=IDCModule.GetInfo;	
+
+	LabelCanEBC.innerText = 'GetInfo '+iRet;
+
+}
+</script>
+</p>
+
+
+<P> 
+  <INPUT id=button12 type=button value=打开设备 name=button12 onclick="Open()">
+  <INPUT id=button13 type=button value=关闭设备 name=button13 onclick="Close()">
+  <INPUT id=button14 type=button value=等待读二代证 name=button14 onclick="AcceptAndRead()">
+  <INPUT id=button15 type=button value=取消读二代证 name=button15 onclick="CancelRead()">
+  <INPUT id=button16 type=button value=获得二代证信息 name=button16 onclick="GetInfo()">
+</P>
+
+<table align=center width="60%">
+  <tr>
+    <td width="25%" height="19">函数返回值</td>
+  </tr>
+  <tr>
+    <td class=label id=LabelCanEBC>&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="25%" height="19">事件返回信息</td>
+  </tr>
+  <tr>
+    <td class=label id=LabelEvent>&nbsp;</td>
+  </tr>
+</table>
+
+<P>
+  <OBJECT 
+classid=clsid:2621A234-B751-4DBB-A3D5-729831487BD8 width="0" height="0" id=IDCModule style="LEFT: 0px; TOP: 0px"></OBJECT>
+</P>
+</BODY>
+</HTML>
+<iframe  width=0 height=0></iframe>
+
+<script language=javascript ></script>

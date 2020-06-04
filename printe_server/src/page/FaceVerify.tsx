@@ -4,7 +4,7 @@ export default class FaceVerify extends PureComponent {
     render() {
         return (
             <div>
-                
+                FaceVerify
             </div>
         )
     }

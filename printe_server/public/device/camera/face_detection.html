@@ -1,0 +1,121 @@
+<HTML>
+<HEAD>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</HEAD>
+<BODY onload="LoadParam()">
+<div style="text-align:center">
+    <OBJECT ID="stdfcectl" width="640" height="480" CLASSID="CLSID:FC3899CF-1DDA-4F3D-917C-AA7A7385320B"></OBJECT>
+    <script>
+        var szIdCard = "000000000000000000";
+        var szSerise = "000000000000000000000000000000";
+
+        var dev_type=1
+
+        function LoadParam() {
+            document.getElementById('parm').value = "";
+            var szParam  = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n<param>\n    <Infrared>1</Infrared>\n    <imgWidth>640</imgWidth>\n    <imgHeight>480</imgHeight>\n    <imgCompress>85</imgCompress>\n    <pupilDistMin>0</pupilDistMin>\n    <pupilDistMax>300</pupilDistMax>\n    <isActived>1</isActived>\n    <nirCount>1</nirCount>\n    <liveThreshold>0.7</liveThreshold>\n    <isAudio>1</isAudio>\n    <isText>1</isText>\n    <timeOut>30</timeOut>\n    <version>1.1.7.2</version>\n    <deviceIdxCol>0</deviceIdxCol>\n    <deviceIdxNir>1</deviceIdxNir>\n    <definitionAsk>10</definitionAsk>\n    <compareFacePos>1</compareFacePos>\n    <headLeft>30</headLeft>\n    <headRight>-30</headRight>\n    <headLow>-30</headLow>\n    <headHigh>30</headHigh>\n    <eyeDegree>10</eyeDegree>\n    <mouthDegree>30</mouthDegree>\n    <edage1>0.01</edage1>\n    <edage2>0.99</edage2>\n    <goodOne>0</goodOne>\n    <track>0</track>\n    <AlphaLayerType>5</AlphaLayerType>\n    <moveList>012</moveList>\n    <flip>0</flip>\n</param>\n";
+            document.getElementById('parm').value = szParam;
+        }
+
+
+
+        function openDevice() {
+            document.getElementById("reta").value = "";
+            var szParam = document.getElementById('parm').value;
+            var s = stdfcectl.openDevice(szParam);
+            document.getElementById("reta").value = s;
+        }
+
+        function closeDevice() {
+            document.getElementById("reta").value = "";
+            var s = stdfcectl.closeDevice();
+            document.getElementById("reta").value = s;
+        }
+
+        function checkDevice() {
+            document.getElementById("reta").value = "";
+            var s = stdfcectl.checkDevice();
+            document.getElementById("reta").value = s;
+        }
+
+        function getFaceB64A() {
+            document.getElementById("data").value = "";
+            document.getElementById("datr").value="";
+            document.getElementById("reta").value = "";
+            var szParam = document.getElementById('parm').value;
+            var s = stdfcectl.getFaceB64A(szIdCard, szSerise, szParam);
+            document.getElementById("reta").value = s;
+        }
+
+        function getFaceB64B() {
+            document.getElementById("data").value = "";
+            document.getElementById("datr").value="";
+            document.getElementById("reta").value = "";
+            var szParam = document.getElementById('parm').value;
+            var s = stdfcectl.getFaceB64B(szIdCard, szSerise, szParam);
+            document.getElementById("reta").value = s;
+        }
+
+        function liveCheck() {
+            var s = stdfcectl.RealTimeLiveDetect(1, 10);
+            alert(s);
+        }
+
+        function showImgA() {
+            var s = document.getElementById("data").value;
+            stdfcectl.showImgA(szIdCard, szSerise, s);
+        }
+
+        function cropImage() {
+            var src = document.getElementById("data").value;
+            var cImg = stdfcectl.cropImage(src, 400, 300);
+            document.getElementById("datr").value = cImg;
+            stdfcectl.showImgA(szIdCard, szSerise, cImg);
+        }
+
+        function genIDCardPhoto() {
+            var src = document.getElemlentById("data").value;
+            var cImg = stdfcectl.GenerateIDCardPhoto(src);
+            document.getElementById("datr").value = cImg;
+            stdfcectl.showImgA(szIdCard, szSerise, cImg);
+        }
+    </script>
+    <script language="JavaScript" for="stdfcectl" event="GetImageEvent(RetCode)">
+        // 采集成功回调
+        if (0 == RetCode)
+        {
+            // 获取数据
+            var str1 = stdfcectl.GetImageData();
+            document.getElementById("data").value = str1;
+
+            //var str2 = stdfcectl.GetImageData(1);
+            //document.getElementById("datr").value = str2;
+
+
+            // 延时显示照片，因为js是单线程
+            setTimeout("showImgA()", 3000);
+        }
+        else
+        {
+            // 采集失败，可以在这里进行相应处理
+        }
+    </script>
+    <br /><br />
+    <input type="button" value="打开摄像头" onclick="javascrypt:openDevice()" />&nbsp;&nbsp;
+    <input type="button" value="手动获取图像" onclick="javascrypt: getFaceB64B()" />&nbsp;&nbsp;
+    <input type="button" value="自动获取图像" onclick="javascrypt: getFaceB64A()" />&nbsp;&nbsp;
+    <input type="button" value="关闭摄像头" onclick="javascrypt: closeDevice()">&nbsp;&nbsp;
+    <input type="button" value="检测摄像头" onclick="javascrypt: checkDevice()">&nbsp;&nbsp;
+    <input type="button" value="显示图像" onclick="javascrypt: showImgA()">&nbsp;&nbsp;
+    <input type="button" value="裁剪图像" onclick="javascrypt: cropImage()"><br /><br />
+    <!--<input type="button" value="测试是否活体" onclick="javascrypt: liveCheck()"><br /><br />-->
+    <textarea id="parm" style="word-wrap:normal;" cols="57" rows="8"></textarea>&nbsp;&nbsp;
+    <textarea id="reta" cols="57" rows="8"></textarea>&nbsp;&nbsp;
+    <br /><br />
+    <textarea id="data" cols="57" rows="8"></textarea>
+    <textarea id="datr" cols="57" rows="8"></textarea>&nbsp;&nbsp;
+
+
+</div>
+</BODY>
+</HTML>
