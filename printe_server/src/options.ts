@@ -92,7 +92,12 @@ const Options: options = {
             comp: UserInfoComp,
             context:"我要统一认证"
         }
-    ]
+    ],
+    API: {
+        baseUrl: "192.168.10.4",
+        port: "8020",
+        applyTemplatePort:"8030",
+    }
 
 }
 export default Options

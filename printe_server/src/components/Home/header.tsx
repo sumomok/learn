@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react'
 import Options from '../../options'
-
+/**
+ * 头部组件，包括logo，报警电话
+ */
 export default class content extends PureComponent {
     render() {
         return (

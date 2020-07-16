@@ -6,9 +6,11 @@ import {  Link } from 'react-router-dom';
 interface Iprops{
     path:string
 }
+/**
+ * 登录模块组件，根据option.ts的属性来生成不同的组件
+ */
 export default class loginModel extends PureComponent<Iprops> {
     render() {
-        console.log(this.props.path);
         return (
             <div className="loginModel">
                 <div className="content">

@@ -33,4 +33,3 @@ function exchange(arr, a, b) {
     arr[b] = temp
 }
 quicksort(Arr);
-console.log(Arr);

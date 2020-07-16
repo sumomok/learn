@@ -4,6 +4,11 @@ export interface options {
     device: devicObject[]
     img: imgUrl
     loginMode: loginType[]
+    API: {
+        baseUrl: string,
+        port: string,
+        applyTemplatePort:string
+    }
 }
 
 interface imgUrl {

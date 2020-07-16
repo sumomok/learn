@@ -9,6 +9,9 @@ interface IProps {
     history: History
     location: Location
 }
+/**
+ * 首页页面组件↓
+ */
 export default class Home extends PureComponent<IProps> {
     render() {
         let background = Options.img.homeBackgroundUrl

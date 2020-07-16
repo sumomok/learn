@@ -8,7 +8,6 @@ export const { set, get } = createActions({
 export default handleActions({
     // @ts-ignore
     [set]: (state, { payload }) => {
-        console.log(payload);
         return [...state,payload]
     },
     // @ts-ignore

@@ -9,6 +9,7 @@
     <script src="print/ptrdocumentdevice.js"></script>
     <script src="../device/downLoadFile/downLoad.js"></script>
     <script src="../device/downLoadFile/img.js"></script>
+    <script src="../device/tool/common.js"></script>
     <title></title>
 </head>
 
@@ -26,11 +27,22 @@
             }
         }
         //页面卸载
-        window.onunload = closeDevice ;
+        window.onunload = closeDevice;
         function window_onload() {
             deviceInit();
             top.downLoadFile = MyFiledownload;
-            MyFiledownload(imgFileDownLoad,'test1');
+            top.getJsonObjet = getJSONObject;
+            top.WriteLog = WriteLog;
+            top.saveHTMLFile = saveHTMLFile;
+            top.registerPrinterEvent = registerPrinterEvent;
+            top.upaloadDeviceInfo = function (cb) {
+                if (top.upaloadDeviceTimer) {
+                    return;
+                }
+                top.upaloadDeviceTimer = setInterval(function () {
+                    upaloadDeviceInfo(cb)
+                }, 1000)
+            }
         }
         function closeDevice() {
             // closeSCCard();
@@ -46,11 +58,11 @@
         }
         function deviceInit() {
             // closeDevice()
-            // try {
-            //     initIDCard();
-            // } catch (e) {
-            //     WriteLog("初始化身份证失败:" + e);
-            // }
+            try {
+                // initIDCard();
+            } catch (e) {
+                WriteLog("初始化身份证失败:" + e);
+            }
             // // 校园卡
             // try {
             //     scCardInit()
@@ -62,6 +74,157 @@
             // 身份证
 
         }
+
+        function ErrorInformationConversion(error) {
+            var ErrorCode = {
+                '60021': '定影器盖被打开',
+                '40121': '后盖被打开',
+                '40021': '前盖/顶盖被打开',
+                '44116': '打印机卡纸。',
+                '44102': '打印机卡纸。',
+                '44115': '打印机卡纸。',
+                '44113': '打印机卡纸。',
+                '44114': '打印机卡纸。',
+                '40121': '打印机卡纸。',
+                '65003': '纸盒1卡纸',
+                '65004': '纸盒2卡纸',
+                '65005': '纸盒2卡纸',
+                '65008': '纸盒3卡纸',
+                '65009': '纸盒3卡纸',
+                '65012': '纸盒4卡纸',
+                '65013': '纸盒4卡纸',
+                '60023': '双面打印尺寸不同',
+                '40310': 'C碳粉已耗尽，请尽快替换',
+                '40311': 'M碳粉已耗尽，请尽快替换',
+                '40312': 'Y碳粉已耗尽，请尽快替换',
+                '40309': 'K碳粉已耗尽，请尽快替换',
+                '60005': '需要清理硒鼓',
+                '40305': '需要清理硒鼓',
+                '40405': '硒鼓未安装',
+                '10205': '需要更换硒鼓',
+                '10305': '需要更换硒鼓',
+                '10316': '需要更换定影器',
+                '10215': '传送皮带即将损坏',
+                '10315': '需要更换传送皮带',
+                '62002': '更换激光装置',
+                '62109': '送纸装置需要更换：T1',
+                '62110': '送纸装置需要更换：T2',
+                '62111': '送纸装置需要更换：T3',
+                '62112': '送纸装置需要更换：T4',
+                '65116': '设备故障',
+                '30015': '内存已满',
+                '60000': '内存已满',
+                '60142': '尺寸不匹配',
+                '40409': '没有碳粉盒：K',
+                '40410': '没有碳粉盒：Y',
+                '40411': '没有碳粉盒：M',
+                '40412': '没有碳粉盒：C',
+                '60030': '打印机自身硬件故障',
+                '50076': '定影盒错误',
+                '60185': '加热组件错误,请等待10分钟',
+                '60182': '过零误差',
+                '60144': '新碳粉盒出现错误',
+                '60003': '正在冷却',
+                '12201': 'Cassete1 Open Error',
+                '12301': 'Cassete1 Open Error',
+                '12401': 'Cassete1 Open Error',
+                '12501': 'Cassete1 Open Error',
+                '60129': '媒体不匹配',
+                '60191': 'Tower Tray Power Off',
+                '60151': 'Development separationsensor / motor operationabnormal state',
+                '60152': 'USB Overcurrent Error',
+                '60153': '自动色彩校正失败',
+                '60154': '不支持的设备',
+                '60155': 'USBHOST HubConnect error',
+                '50007': '颜色校准失败',
+                '60159': '设备异常，错误代码：60159',
+                '60179': '设备故障：Too Many Trays。',
+                '60157': '设备故障：Short Paper',
+                '60147': '设备故障：Tray2 Feeding table lifting Timeout。',
+                '60168': '设备故障：Tray3 Feeding table lifting Timeout。',
+                '40415': '设备故障：Belt uint is missing',
+                '40405': '设备故障：Drum uint is not installed',
+                '40026': '设备故障：Waste toner box is not installed',
+                '62102': '设备警告：Waste Toner Box is near full',
+                '40141': '废碳粉盒已满',
+            }
+            var warringCode = {
+                '62122': '纸盒一纸张不足',
+                '62123': '纸盒二纸张不足',
+                '62124': '纸盒三纸张不足',
+                '62125': '纸盒四纸张不足',
+                '10210': 'C碳粉即将耗尽，请注意',
+                '10211': 'M碳粉即将耗尽，请注意',
+                '10212': 'Y碳粉即将耗尽，请注意',
+                '10209': 'K碳粉即将耗尽，请注意',
+            }
+            var printingCode = {
+                "10003": "初始化",
+                "10023": "正在打印中",
+                "10001": "打印机准备就绪",
+                "10007": "打印机取消作业"
+            }
+            var prtErrorCode = error.split('[')[1].split(']')[0];
+            var strstate = error.split('[')[0]
+            var result = {
+                state: "normal",
+                message: '',
+            }
+            var error = prtErrorCode
+            if (error) {
+                if (ErrorCode[error] && strstate !== '打印机正常') {
+                    result.state = 'error';
+                    result.message = ErrorCode[error];
+                } else if (warringCode[error]) {
+                    result.state = 'warring';
+                    result.message = warringCode[error];
+                } else if (printingCode[error]) {
+                    result.state = 'normal';
+                    if (printingCode[error]) {
+                        result.message = printingCode[error];
+                    } else {
+                        result.message = '打印机正常'
+                    }
+                } else {
+                    result.state = 'unknow';
+                    result.message = '设备出现未知故障，请尽快处理';
+                }
+            }
+            if (parseInt(error) > 41200 && parseInt(error) < 41299) {
+                result.state = 'error';
+                result.message = '纸盒一缺纸';
+            }
+            if (parseInt(error) > 41300 && parseInt(error) < 41399) {
+                result.state = 'error';
+                result.message = '纸盒二缺纸';
+            }
+            if (parseInt(error) > 41400 && parseInt(error) < 41499) {
+                result.state = 'error';
+                result.message = '纸盒三缺纸';
+            }
+            if (parseInt(error) > 41500 && parseInt(error) < 41599) {
+                result.state = 'error';
+                result.message = '纸盒四缺纸';
+            }
+            if (parseInt(error) > 11200 && parseInt(error) < 11299) {
+                result.state = 'error';
+                result.message = '纸盒一缺纸';
+            }
+            if (parseInt(error) > 11300 && parseInt(error) < 11399) {
+                result.state = 'error';
+                result.message = '纸盒二缺纸';
+            }
+            if (parseInt(error) > 11400 && parseInt(error) < 11499) {
+                result.state = 'error';
+                result.message = '纸盒三缺纸';
+            }
+            if (parseInt(error) > 11500 && parseInt(error) < 11599) {
+                result.state = 'error';
+                result.message = '纸盒四缺纸';
+            }
+            return result;
+        }
+
         function printerInit() {
             try {
                 var logicalName = "StatementPrinter";
@@ -69,6 +232,13 @@
                 console.log(top);
                 top.ptr.SetAttribute("LogicalName", logicalName);
                 top.ptr.OpenConnectionAsync();
+            } catch (e) {
+                WriteLog("打印机控件调初始化失败:" + e);
+            }
+        }
+
+        function registerPrinterEvent(cb) {
+            try {
                 top.ptr.onEvent = function (cmd) {
                     var num = arguments.length;
                     var funcstr = 'WriteCallResult(';
@@ -111,28 +281,7 @@
                         case "EjectComplete":
                             break;
                         case "PrintRawDataComplete":
-                            // WriteLog("PrintRawDataComplete");
-
-                            if (num == 2) {
-                                // var printInfo = getJSONObject("printInfo");
-                                // var data = arguments[1];
-                                // if (data == 'Failure') {
-                                //     sendMsg2TopScreen("<p style=\"color:red\">打印失败，请联系管理员</p>");
-                                //     //commitDeviceStatus("02", "打印机打印失败:" + funcstr,"04","Printer01",function(){});
-                                //     commitLog("", printInfo.TemplateNO, "", "", printInfo.screenShot, printInfo.peopleShot, "Failure", printInfo.ECode, "Print Failure" + funcstr, printInfo.UserCode, function () { });
-                                //     WriteLog("打印机打印失败:" + funcstr);
-                                //     top.mainFrame.showMsgBox("打印失败，请稍后重试！");
-                                //     top.mainFrame.location.href = '../html/index.html';
-                                //     return;
-                                // }
-                                // WriteLog("打印成功");
-                                // // WriteLog(printInfo);
-                                // top.mainFrame.location.href = "../html/PrintSuccess.html";
-                                // commitLog("", printInfo.TemplateNO, "", "", printInfo.screenShot, printInfo.peopleShot, "Success", printInfo.ECode, "", printInfo.UserCode, function () { });
-                                // sendMsg2TopScreen("<p style=\"color:red\">打印成功，请取走文件</p>");
-                            } else {
-                                // WriteLog(arguments);
-                            }
+                            cb()
                             break;
                         case "ResetComplete":
                             break;
@@ -146,200 +295,76 @@
                             break;
 
                     }
-                    // WriteLog("打印机事件：" + funcstr);
                 }
             } catch (e) {
-                // commitDeviceStatus("02", "打印机控件调初始化失败" + e, "04", "Printer01", function () { });
-                // WriteLog("打印机控件调初始化失败:" + e);
-                // top.mainFrame.showMsgBox("打印机控件调初始化失败", printerInit);
+
             }
         }
-        function ErrorInformationConversion(error) {
-            // if (error == '打印机正常') {
-            //     return '打印机正常';
-            // }
-            // error = error.split('[')[1].split(']')[0];
-            // var ErrorCode = {
-            //     '60021': '定影器盖被打开',
-            //     '40121': '后盖被打开',
-            //     '40021': '前盖/顶盖被打开',
-            //     '44116': '打印机卡纸。',
-            //     '44102': '打印机卡纸。',
-            //     '44115': '打印机卡纸。',
-            //     '44113': '打印机卡纸。',
-            //     '44114': '打印机卡纸。',
-            //     '40121': '打印机卡纸。',
-            //     '65003': '纸盒1卡纸',
-            //     '65004': '纸盒2卡纸',
-            //     '65005': '纸盒2卡纸',
-            //     '65008': '纸盒3卡纸',
-            //     '65009': '纸盒3卡纸',
-            //     '65012': '纸盒4卡纸',
-            //     '65013': '纸盒4卡纸',
-            //     '60023': '双面打印尺寸不同',
-            //     '10210': 'C碳粉即将耗尽，请注意',
-            //     '10211': 'M碳粉即将耗尽，请注意',
-            //     '10212': 'Y碳粉即将耗尽，请注意',
-            //     '10209': 'K碳粉即将耗尽，请注意',
-            //     '40310': 'C碳粉已耗尽，请尽快替换',
-            //     '40311': 'M碳粉已耗尽，请尽快替换',
-            //     '40312': 'Y碳粉已耗尽，请尽快替换',
-            //     '40309': 'K碳粉已耗尽，请尽快替换',
-            //     '60005': '需要清理硒鼓',
-            //     '40305': '需要清理硒鼓',
-            //     '40405': '硒鼓未安装',
-            //     '10205': '需要更换硒鼓',
-            //     '10305': '需要更换硒鼓',
-            //     '10316': '需要更换定影器',
-            //     '10215': '传送皮带即将损坏',
-            //     '10315': '需要更换传送皮带',
-            //     '62002': '更换激光装置',
-            //     '62109': '送纸装置需要更换：T1',
-            //     '62110': '送纸装置需要更换：T2',
-            //     '62111': '送纸装置需要更换：T3',
-            //     '62112': '送纸装置需要更换：T4',
-            //     '65116': '设备故障',
-            //     '30015': '内存已满',
-            //     '60000': '内存已满',
-            //     '60142': '尺寸不匹配',
-            //     '40409': '没有碳粉盒：K',
-            //     '40410': '没有碳粉盒：Y',
-            //     '40411': '没有碳粉盒：M',
-            //     '40412': '没有碳粉盒：C',
-            //     '60030': '打印机自身硬件故障',
-            //     '50076': '定影盒错误',
-            //     '60185': '加热组件错误,请等待10分钟',
-            //     '60182': '过零误差',
-            //     '60144': '新碳粉盒出现错误',
-            //     '60003': '正在冷却',
-            //     '12201': 'Cassete1 Open Error',
-            //     '12301': 'Cassete1 Open Error',
-            //     '12401': 'Cassete1 Open Error',
-            //     '12501': 'Cassete1 Open Error',
-            //     '60129': '媒体不匹配',
-            //     '60191': 'Tower Tray Power Off',
-            //     '60151': 'Development separationsensor / motor operationabnormal state',
-            //     '60152': 'USB Overcurrent Error',
-            //     '60153': '自动色彩校正失败',
-            //     '60154': '不支持的设备',
-            //     '60155': 'USBHOST HubConnect error',
-            //     '50007': '颜色校准失败',
-            //     '60159': '设备异常，错误代码：60159',
-            //     '62122': '纸盒一纸张不足',
-            //     '62123': '纸盒二纸张不足',
-            //     '62124': '纸盒三纸张不足',
-            //     '62125': '纸盒四纸张不足',
-            //     '60179': '设备故障：Too Many Trays。',
-            //     '60157': '设备故障：Short Paper',
-            //     '60147': '设备故障：Tray2 Feeding table lifting Timeout。',
-            //     '60168': '设备故障：Tray3 Feeding table lifting Timeout。',
-            //     '40415': '设备故障：Belt uint is missing',
-            //     '40405': '设备故障：Drum uint is not installed',
-            //     '40026': '设备故障：Waste toner box is not installed',
-            //     '62102': '设备警告：Waste Toner Box is near full',
-            //     '40141': '废碳粉盒已满',
-            // }
-            // var errorStr = '';
-            // if (ErrorCode[error]) {
-            //     errorStr += ErrorCode[error]
-            // }
-            // if (parseInt(error) > 41200 && parseInt(error) < 41299) {
-            //     errorStr += '纸盒一缺纸';
-            // }
-            // if (parseInt(error) > 41300 && parseInt(error) < 41399) {
-            //     errorStr += '纸盒二缺纸';
-            // }
-            // if (parseInt(error) > 41400 && parseInt(error) < 41499) {
-            //     errorStr += '纸盒三缺纸';
-            // }
-            // if (parseInt(error) > 41500 && parseInt(error) < 41599) {
-            //     errorStr += '纸盒四缺纸';
-            // }
-            // if (parseInt(error) > 11200 && parseInt(error) < 11299) {
-            //     errorStr += '纸盒一缺纸';
-            // }
-            // if (parseInt(error) > 11300 && parseInt(error) < 11399) {
-            //     errorStr += '纸盒二缺纸';
-            // }
-            // if (parseInt(error) > 11400 && parseInt(error) < 11499) {
-            //     errorStr += '纸盒三缺纸';
-            // }
-            // if (parseInt(error) > 11500 && parseInt(error) < 11599) {
-            //     errorStr += '纸盒四缺纸';
-            // }
-            // WriteLog('打印机故障：'+errorStr == '' ? '设备出现未知故障，请尽快处理' : errorStr);
-            // return errorStr == '' ? '设备出现未知故障，请尽快处理' : errorStr;
+
+        function upaloadDeviceInfo(cb) {
+            try {
+                var printerInfo = ErrorInformationConversion(JSON.parse(top.ptr.GetStatus()).Extra.StatusDesc);
+                var params = {
+                    TerminalStateNo: printerInfo.state === 'error' ? 2000 : 1000,
+                    TerminalStateDescription: printerInfo.state === 'error' ? printerInfo.message : "设备正常",
+                    TerminalLevel: printerInfo.state === 'error' ? 'error' : printerInfo.state === 'warring' ? 'warring' : "info",
+                    submoduleDetails: [
+                        {
+                            SubMouldeNo: "PTR",
+                            StateCode: printerInfo.state === 'error' ? 2000 : 1000,
+                            StateDescription: printerInfo.message
+                        },
+                        {
+                            SubMouldeNo: "CRD",
+                            StateCode: 1000,
+                            StateDescription: "正常"
+                        }
+                    ]
+                }
+                // var IDcardInfo = 
+                cb(params)
+            } catch (e) {
+                cb(
+                    {
+                        TerminalStateNo: 3000,
+                        TerminalStateDescription: "设备模块出现异常",
+                        TerminalLevel: "error",
+                        submoduleDetails: [
+                            {
+                                SubMouldeNo: "PTR",
+                                StateCode: 3000,
+                                StateDescription: "打印机模块异常"
+                            },
+                            {
+                                SubMouldeNo: "CRD",
+                                StateCode: 3000,
+                                StateDescription: "身份证模块异常"
+                            }
+                        ]
+                    }
+                )
+                WriteLog(JSON.stringify("设备故障：" + JSON.stringify(
+                    {
+                        TerminalStateNo: 3000,
+                        TerminalStateDescription: "设备模块出现异常",
+                        TerminalLevel: "error",
+                        submoduleDetails: [
+                            {
+                                SubMouldeNo: "PTR",
+                                StateCode: 3000,
+                                StateDescription: "打印机模块异常"
+                            },
+                            {
+                                SubMouldeNo: "CRD",
+                                StateCode: 3000,
+                                StateDescription: "身份证模块异常"
+                            }
+                        ]
+                    }
+                )))
+            }
         }
-        function upPrinterStatus() {
-            /**
-             *  {string} 设备状态信息，JSON格式字符串
-              {
-   Device:"HEALTHY" 设备状态，"HEALTHY"表示设备正常，"NODEVICE"表示无设备，"FATAL"表示设备故障，"UNKNOWN"表示设备状态未知
-   Media:"PRESENT" 打印媒介状态，"PRESENT"表示有纸，"NOTPRESENT"表示无纸，"JAMMED"表示卡纸，"UNKNOWN"表示未知
-   Paper:"FULL" 上供纸盒状态，"FULL"表示纸满，"LOW"表示纸少，"OUT"表示无纸，"NOTSUPP"表示无法查询纸量，"UNKNOWN"表示未知纸状态，"JAMMED"表示卡纸
-   PaperSupplyDetails:所有纸盒状态，json对象
-   {
-   UpperSupply:"FULL" 上供纸盒状态，取值同Paper取值
-   LowerSupply:"FULL" 下供纸盒状态，取值同Paper取值
-   ExternalSupply:"FULL" 扩展供纸盒状态，取值同Paper取值
-   AuxiliarySupply:"FULL" 其他供纸盒状态，取值同Paper取值
-   AuxiliarySupply_2:"FULL" 其他供纸盒状态，取值同Paper取值
-   ParkingStation:"FULL" 其他供纸盒状态，取值同Paper取值
-   }
-   Toner:"FULL" 碳粉盒状态，"FULL"表示满，"LOW"表示不满，"OUT"表示空，"NOTSUPP"表示不可查询，"UNKNOWN"表示未知
-   Ink:"FULL" 墨盒状态，"FULL"表示满，"LOW"表示不满，"OUT"表示空，"NOTSUPP"表示不可查询，"UNKNOWN"表示未知
-   Lamp:"OK" 成像灯状态，"OK"表示正常，"FADING"表示应当更换，"INOP"表示正在使用，"NOTSUPP"表示不可查询，"UNKNOWN"表示未知
-   RetractBins:"OK" 回收箱状态，Json数组，每个成员均有如下属性
-   {
-   RetractBin:"OK" 回收箱状态，"OK"表示正常，"FULL"表示已满，"NOTPRESENT"表示缺失，"HIGH"表示将满，"UNKNOWN"表示未知
-   RetractCount:0 回收纸张计数，数字类型
-   }
-  "DriverVersion" : "", SP 的DevBase 层和Vendor层版本信息，
-  "Extra" : {} 厂商自定义信息
-  "FirmwareVersion" : "" 设备的固件版本信息
-  "LastErrorCode" : "" 最近一次的故障代码
-  "LastErrorDetail" : "" 最近一次的故障描述
-  "SPVersion" : "" SP版本信息
-  "VendorName" : "" SP提供商厂商名称
-  }
-              */
-            // try {
-            //     var ptrStatus = top.ptr.GetStatus();
-            //     var statNo = "01"; // 1: 正常 2： 故障或异常，3： 未知
-            //     switch (JSON.parse(ptrStatus).Device) {
-            //         case "HEALTHY":
-            //             statNo = "01";
-            //             break;
-            //         case "NODEVICE":
-            //             statNo = "02";
-            //             break;
-            //         case "FATAL":
-            //             statNo = "02";
-            //             break;
-            //         case "UNKNOWN":
-            //             statNo = "03";
-            //             break;
-            //     }
-            //     var error = ErrorInformationConversion(JSON.parse(ptrStatus).Extra.StatusDesc)
-            //     if (statNo == "02") {
-            //         prtErrorState += 1 ;
-            //         WriteLog("打印机状态出现异常:" + error);
-            //         if (prtErrorState <= 1) {
-            //             commitDeviceStatus(statNo, error, "04", "Printer01", function () { });
-            //             top.mainFrame.location.href = '../html/DeviceError.html';
-            //             WriteLog('异常提交成功');
-            //         }
-            //     }
-            //     // if (JSON.parse(ptrStatus).Extra.StatusDesc != "打印机正常") {
-            //     //     top.mainFrame.prtError = true;
-            //     // } else {
-            //     //     top.mainFrame.prtError = false;
-            //     // }
-            // } catch (e) {
-            //     WriteLog("提交打印机状态失败:" + e);
-            // }
-        }
-        // var timer2 = setInterval(upPrinterStatus, 1000 * 30); // 提交打印机状态
+
     </script>
 </body>
 

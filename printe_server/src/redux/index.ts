@@ -12,5 +12,4 @@ let store = createStore(reducer, applyMiddleware(saga, logger));
 // saga.run(rootTask);
 
 // store.dispatch(set({ type: "PRT", device: {} }));
-// console.log(store.getState());
 export default store
