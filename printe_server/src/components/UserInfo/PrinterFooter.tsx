@@ -106,7 +106,7 @@ class PrinterFooter extends PureComponent<Iprops> {
                                 //此处为打印方法↓
                                 if (process.env.NODE_ENV === 'production') {
                                     // @ts-ignore
-                                    // window.ptr.PrintRawDataAsync("PrintType=1;FilePath=D:\\download\\" + this.props.filename + ";");
+                                    window.ptr.PrintRawDataAsync("PrintType=1;FilePath=D:\\download\\" + this.props.filename + ";");
                                 }
                                 console.log(document.getElementById('showTemplate'));
                                 var rootDom = document.getElementById('showTemplate');
@@ -140,7 +140,7 @@ class PrinterFooter extends PureComponent<Iprops> {
                                 }
                                 // html2canvas(document.getElementById('#root'))
                                 //跳转到即将打印的界面↓
-                                // this.props.history.push({ pathname: '/printer/UserInfo/selectTemplate/Printing', state: { filename: this.props.filename } })
+                                this.props.history.push({ pathname: '/printer/UserInfo/selectTemplate/Printing', state: { filename: this.props.filename } })
                             }} alt="" /> : this.props.step === 6 ? <img src={again} alt="" /> : null
                     }
                 </div>

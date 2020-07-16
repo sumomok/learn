@@ -28,7 +28,7 @@ function App() {
             // @ts-ignore
             window.upaloadDeviceInfo(Api.TerminalInfo);
           }
-        }, 2000)
+        }, 1000)
       }
     } else if (process.env.NODE_ENV === 'development') {
       const interval = setInterval(() => {

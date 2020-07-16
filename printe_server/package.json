@@ -70,5 +70,7 @@
     "@types/react-router": "^5.1.7",
     "@types/react-router-dom": "^5.1.5"
   },
-  "proxy": "http://192.168.10.4:8020"
+  "proxy": "http://192.168.10.4:8020",
+  "main": "index.js",
+  "license": "MIT"
 }
