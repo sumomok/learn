@@ -10,6 +10,7 @@
     <script src="../device/downLoadFile/downLoad.js"></script>
     <script src="../device/downLoadFile/img.js"></script>
     <script src="../device/tool/common.js"></script>
+    <script src="../device/id_card/InsertIDCard_init.js"></script>
     <title></title>
 </head>
 
@@ -31,10 +32,16 @@
         function window_onload() {
             deviceInit();
             top.downLoadFile = MyFiledownload;
+            top.IDCard = document.getElementById('IDCard');
+            top.GetIDCardDeviceStatus = GetDeviceStatus
             top.getJsonObjet = getJSONObject;
             top.WriteLog = WriteLog;
             top.saveHTMLFile = saveHTMLFile;
             top.registerPrinterEvent = registerPrinterEvent;
+            top.getPrinterDeviceInfo = getPrinterDeviceInfo;
+            top.acceptAndRead = acceptAndRead;
+            top.getInfo = getInfo;
+            top.cancelRead = cancelRead;
             top.upaloadDeviceInfo = function (cb) {
                 if (top.upaloadDeviceTimer) {
                     return;
@@ -43,6 +50,19 @@
                     upaloadDeviceInfo(cb)
                 }, 1000)
             }
+        }
+        function getPrinterDeviceInfo(cb) {
+            var deviceChecktimer = setInterval(function () {
+                var printerInfo = ErrorInformationConversion(JSON.parse(top.ptr.GetStatus()).Extra.StatusDesc);
+                if (printerInfo.state === 'error') {
+                    clearInterval(deviceChecktimer);
+                    cb(false);
+                }
+                if (printerInfo.message === '正在打印中') {
+                    clearInterval(deviceChecktimer);
+                    cb(true)
+                }
+            }, 500)
         }
         function closeDevice() {
             // closeSCCard();
@@ -59,7 +79,7 @@
         function deviceInit() {
             // closeDevice()
             try {
-                // initIDCard();
+                initIDCard();
             } catch (e) {
                 WriteLog("初始化身份证失败:" + e);
             }
@@ -232,6 +252,7 @@
                 console.log(top);
                 top.ptr.SetAttribute("LogicalName", logicalName);
                 top.ptr.OpenConnectionAsync();
+
             } catch (e) {
                 WriteLog("打印机控件调初始化失败:" + e);
             }
@@ -281,7 +302,6 @@
                         case "EjectComplete":
                             break;
                         case "PrintRawDataComplete":
-                            cb()
                             break;
                         case "ResetComplete":
                             break;
@@ -304,6 +324,16 @@
         function upaloadDeviceInfo(cb) {
             try {
                 var printerInfo = ErrorInformationConversion(JSON.parse(top.ptr.GetStatus()).Extra.StatusDesc);
+                var IDcardInfo = top.IDCard.GetDeviceStatus();
+                var IDDeviceState = ''
+                var IDDeviceCode = 0
+                if(IDcardInfo === '010008设备故障'){
+                    IDDeviceState = '设备故障',
+                    IDDeviceCode = 2000
+                } else {
+                    IDDeviceState = '设备正常',
+                    IDDeviceCode = 1000
+                }
                 var params = {
                     TerminalStateNo: printerInfo.state === 'error' ? 2000 : 1000,
                     TerminalStateDescription: printerInfo.state === 'error' ? printerInfo.message : "设备正常",
@@ -316,8 +346,8 @@
                         },
                         {
                             SubMouldeNo: "CRD",
-                            StateCode: 1000,
-                            StateDescription: "正常"
+                            StateCode: IDDeviceCode,
+                            StateDescription: IDDeviceState
                         }
                     ]
                 }

@@ -3,7 +3,6 @@ import options from './apiOptions';
 import { UserLoginParams, TerminalInfoParams, ApplyTempletParams, PrintInfoParams, SwitchInfoParams, TemplateElecParams, TemplateInfoParams, PackageInfoParams, DeviceCommandParams } from '../types/ApiParams';
 if (process.env.NODE_ENV === 'production') {
     axios.defaults.baseURL = 'http://' + options.API.baseUrl + ':' + options.API.port;
-    console.log(axios.defaults.baseURL);
 }
 let TerminalNO = '101', TerminalIP = '10.100.255.18';
 // axios.defaults.baseURL = 'http://192.168.10.4:8020';

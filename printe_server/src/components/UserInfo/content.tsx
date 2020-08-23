@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import '../../assets/sass/UserInfoContent.scss'
 import 'react-simple-keyboard/build/css/index.css';
 import { Route, Switch } from 'react-router-dom';
-import Login from './login';
 import NotFindError from '../../page/404Error';
 import '../../assets/sass/selectTemplate.scss';
 import SelectTemplateType from '../SelectTemplate/SelectTemplateType';
@@ -16,6 +15,8 @@ import { MenuResult } from '../../types/response';
 interface Iprops {
     history: H.History<H.LocationState>
     location: H.Location<H.LocationState>
+    FirstComp:Function
+    firstPath:string
     onChengeUserName: Function
     onChengePassword: Function,
     onDeleteUserName: Function,
@@ -37,11 +38,12 @@ interface Iprops {
 export default class content extends PureComponent<Iprops> {
 
     render() {
+        let FirstComp = this.props.FirstComp;
         return (
             <>
                 <Switch>
-                    <Route exact path="/printer/UserInfo/login" component={
-                        () => <Login
+                    <Route exact path={this.props.firstPath} component={
+                        () => <FirstComp
                             onChengeUserName={this.props.onChengeUserName}
                             onChengePassword={this.props.onChengePassword}
                             onDeleteUserName={this.props.onDeleteUserName}

@@ -9,6 +9,7 @@ import CountDown from 'react-countdown-clock'
 import * as H from 'history';
 import { Steps, Spin } from 'antd';
 import { userInfo } from '../types/response';
+import Login from '../components/UserInfo/login';
 const { Step } = Steps
 interface Iprops {
     history: H.History<H.LocationState>
@@ -23,7 +24,7 @@ interface IState {
     inputDomClass: string,
     userInfo: userInfo,
     fileName: string,
-    htmlcontent:string
+    htmlcontent: string
 }
 export default class UserInfo extends PureComponent<Iprops, IState> {
     state = {
@@ -42,7 +43,7 @@ export default class UserInfo extends PureComponent<Iprops, IState> {
             }
         },
         fileName: '',
-        htmlcontent:""
+        htmlcontent: ""
     };
     setStep(value: number) {
         this.setState({
@@ -57,19 +58,15 @@ export default class UserInfo extends PureComponent<Iprops, IState> {
                 <div style={{ width: "100%", position: "absolute", top: 130 }}>
                     <div style={{ position: "absolute", top: 60, right: 50, zIndex: 999 }}>
                         {
-                            () => {
-                                if (process.env.NODE_ENV === 'production') {
-                                    return <CountDown
-                                        seconds={150}
-                                        color="rgb(146,13,20)"
-                                        alpha={0.9}
-                                        size={100}
-                                        onComplete={() => { this.props.history.push('/') }}
-                                    ></CountDown>
-                                } else {
-                                    return null;
-                                }
-                            }}
+                            process.env.NODE_ENV === 'production' ?
+                                <CountDown
+                                    seconds={150}
+                                    color="rgb(146,13,20)"
+                                    alpha={0.9}
+                                    size={100}
+                                    onComplete={() => { this.props.history.push('/') }}
+                                ></CountDown> : null
+                        }
                     </div>
                     <Steps
                         type="navigation"
@@ -89,14 +86,16 @@ export default class UserInfo extends PureComponent<Iprops, IState> {
                         // ContentComp={() => <div>test</div>}
                         ContentComp={() =>
                             <Content
+                                firstPath="/printer/UserInfo/login"
+                                FirstComp={Login}
                                 MenuInfo={this.state.userInfo.MenuInfo ? this.state.userInfo.MenuInfo : undefined}
                                 history={this.props.history}
                                 setStep={(value: number) => this.setStep(value)}
                                 htmlcontent={this.state.htmlcontent}
-                                setHtmlContent={(value: string)=>{
+                                setHtmlContent={(value: string) => {
                                     this.setState({
                                         ...this.state,
-                                        htmlcontent:value
+                                        htmlcontent: value
                                     })
                                 }}
                                 onChengeUserName={(value: string) => {

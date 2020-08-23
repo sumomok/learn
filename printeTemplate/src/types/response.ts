@@ -5,6 +5,7 @@ export interface requestData {
     Data: requestDataDataparams
 }
 interface requestDataDataparams {
+    printNumber: string;
     chargeObj: {
         ischarge: boolean,
         qrcodeInfo: string,

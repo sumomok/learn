@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, {  useEffect } from 'react';
 import Home from './page/Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Option from './options';
 import './assets/sass/index.scss';
 import NotFindError from './page/404Error';
+import DeviceError from './page/DeviceError';
 import Api from './API/index';
 import Device from './components/device'
 
@@ -13,7 +14,6 @@ import Device from './components/device'
  */
 function App() {
   // 通过Options.ts中的参数来控制登录方式
-  const [uploadeState, setuploadeState] = useState({ number: 0 })
   useEffect(() => {
 
     if (process.env.NODE_ENV === 'production') {
@@ -31,7 +31,7 @@ function App() {
         }, 1000)
       }
     } else if (process.env.NODE_ENV === 'development') {
-      const interval = setInterval(() => {
+        setInterval(() => {
         Api.TerminalInfo({
           TerminalStateNo: "1000",
           TerminalStateDescription: "正常",
@@ -48,7 +48,7 @@ function App() {
               StateDescription: "正常"
             }
           ]
-        }).then(res => console.log(res));
+        }).then();
       }, 1000 * 60)
     }
   }, [])
@@ -59,8 +59,10 @@ function App() {
       <Router>
         <Switch>
           {ModeArray}
+          <Route path="/DeviceError" exact component={DeviceError}></Route>
           {/* 首页↓ */}
           <Route path="/" exact component={Home}></Route>
+
           {/* 404页面↓ */}
           <Route path="*" component={NotFindError}></Route>
         </Switch>

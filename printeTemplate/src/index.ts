@@ -68,8 +68,8 @@ app.post('/applyTemplate', async (req, res) => {
                         let fileName = v4() + ''
                         fileName = fileName.substring(0, 7) + '.html'
                         var resultFs = await fs.promises.writeFile(path.join(__dirname, './output/' + fileName), htmlData);
-                        console.log(fileName);
-                        HandleRequest.sendResult({ htmlData, fileName }, '', res, true);
+                        let printNumber = result.Data.printNumber
+                        HandleRequest.sendResult({ htmlData, fileName,printNumber }, '', res, true);
                     } else {
                         HandleRequest.sendResult({ htmlData }, '生成模板失败，模板数据为空', res, false)
                     }

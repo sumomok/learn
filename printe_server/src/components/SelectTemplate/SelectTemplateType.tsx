@@ -19,8 +19,15 @@ export default class SelectTemplateType extends PureComponent<Iprops> {
     render() {
         var newMenuInfoLeft: any[] = []
         var newMenuInfoRight: any[] = []
-        if (this.props.MenuInfo) {
-            this.props.MenuInfo.map((it, index) => {
+        let MenuInfoString = window.localStorage.getItem('MenuInfo') ? window.localStorage.getItem('MenuInfo') : "";
+        let UserInfoString = window.localStorage.getItem('UserInfo') ? window.localStorage.getItem('UserInfo') : "";
+
+        let MenuInfo = JSON.parse(MenuInfoString ? MenuInfoString : "");
+        let UserInfo = JSON.parse(UserInfoString ? UserInfoString : "");
+        console.log(UserInfo)
+        if (MenuInfo) {
+            //@ts-ignore
+            MenuInfo.map((it, index) => {
                 if (index % 2) {
                     newMenuInfoRight.push(
                         <Link key={it.m_guid} to={{
@@ -48,10 +55,10 @@ export default class SelectTemplateType extends PureComponent<Iprops> {
                 <div className="userInfo">
                     <div className="content">
                         <p>
-                            姓&nbsp;&nbsp;&nbsp;名：&nbsp;<span>{this.props.userInfo.userName}</span>
+                            姓&nbsp;&nbsp;&nbsp;名：&nbsp;<span>{UserInfo.UserName}</span>
                         </p>
                         <p>
-                            证件号：<span>{this.props.userInfo.userCode}</span>
+                            证件号：<span>{UserInfo.UserCode}</span>
                         </p>
                     </div>
                 </div>

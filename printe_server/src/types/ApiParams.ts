@@ -52,6 +52,7 @@ export interface PrintInfoParams {
     PrintNumber: string,
     Description: string,
     IsCharge: boolean,
+    IsElectronic:boolean,
     PayOrderNo: string,
     OrderTotalPrice: number,
     TempalatePDFpath: string,

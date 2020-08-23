@@ -11,7 +11,8 @@ import { CheckOutlined } from '@ant-design/icons';
 import html2canvas from 'html2canvas';
 
 interface Iprops {
-    step: number,
+    isCard?:boolean
+    step: number
     spining: Function
     onRequestuserInfo: (value: userInfo) => void
     history: H.History<H.LocationState>
@@ -25,7 +26,7 @@ interface Iprops {
 
 class PrinterFooter extends PureComponent<Iprops> {
     componentDidMount() {
-    
+
     }
     state = {
         UserInfo: {},
@@ -53,7 +54,7 @@ class PrinterFooter extends PureComponent<Iprops> {
                 </div>
                 <div className='right'>
                     {
-                        this.props.step === 0 ?
+                        this.props.step === 0 && !this.props.isCard ?
                             <img src={Options.img.button.ok} alt=""
                                 onClick={
                                     () => {
@@ -65,7 +66,6 @@ class PrinterFooter extends PureComponent<Iprops> {
                                                 UserPwd: this.props.password ? this.props.password : ""
                                             }
                                         }).then(({ data }) => {
-                                            console.log(data);
                                             this.props.spining(false)
                                             if (data.AppMsg === 'success') {
                                                 message.success({
@@ -77,10 +77,8 @@ class PrinterFooter extends PureComponent<Iprops> {
                                                     MenuInfo,
                                                     UserInfo
                                                 });
-                                                this.setState({
-                                                    MenuInfo,
-                                                    UserInfo
-                                                })
+                                                window.localStorage.setItem('MenuInfo', JSON.stringify(MenuInfo));
+                                                window.localStorage.setItem('UserInfo', JSON.stringify(UserInfo));
                                                 this.props.history.push('/printer/UserInfo/selectTemplate/SelectTemplateType')
                                             } else {
                                                 message.error({
@@ -92,7 +90,6 @@ class PrinterFooter extends PureComponent<Iprops> {
                                             }
                                         }).catch(err => {
                                             this.props.spining(false)
-                                            console.log(err);
                                             message.error({
                                                 content: '网络错误，请重试',
                                                 style: {
@@ -102,46 +99,29 @@ class PrinterFooter extends PureComponent<Iprops> {
                                         })
                                     }} /> :
                             this.props.step === 3 ? <img src={Options.img.button.print} onClick={() => {
-                                console.log('test');
                                 //此处为打印方法↓
                                 if (process.env.NODE_ENV === 'production') {
                                     // @ts-ignore
                                     window.ptr.PrintRawDataAsync("PrintType=1;FilePath=D:\\download\\" + this.props.filename + ";");
                                 }
-                                console.log(document.getElementById('showTemplate'));
-                                var rootDom = document.getElementById('showTemplate');
-
+                                let rootDom = document.getElementById('showTemplate');
                                 if (rootDom) {
                                     // @ts-ignore
                                     rootDom = rootDom.contentDocument.body;
                                     if (rootDom) {
                                         html2canvas(rootDom).then(canvas => {
-                                            var base64Html = canvas.toDataURL('utf-8').split(',')[1];
-                                            // if()
-                                            // api.PrintInfo({
-                                            //     UserCode: "",
-                                            //     UserIDCard: "",
-                                            //     UserType: "",
-                                            //     PrintResult: true,
-                                            //     PrintCount: 1,
-                                            //     PrintNumber: "",
-                                            //     Description: "",
-                                            //     IsCharge: false,
-                                            //     PayOrderNo: "",
-                                            //     OrderTotalPrice: 1,
-                                            //     TempalatePDFpath: base64Html,
-                                            //     LocalePhoto: "",
-                                            //     TemplateGuid: "",
-                                            //     TemplateCode: ""
-                                            // }).then(res => console.log());
+                                            console.log('test');
+                                            let base64Html = canvas.toDataURL('utf-8').split(',')[1];
+                                            window.localStorage.setItem('base64Html', base64Html);
+                                            this.props.history.push({ pathname: '/printer/UserInfo/selectTemplate/Printing', state: { filename: this.props.filename } })
                                         })
+                                    } else {
+                                        message.error('屏幕截图失败')
                                     }
 
                                 }
-                                // html2canvas(document.getElementById('#root'))
-                                //跳转到即将打印的界面↓
-                                this.props.history.push({ pathname: '/printer/UserInfo/selectTemplate/Printing', state: { filename: this.props.filename } })
-                            }} alt="" /> : this.props.step === 6 ? <img src={again} alt="" /> : null
+
+                            }} alt="" /> : this.props.step === 6 ? <img src={again} onClick={() => this.props.history.push('/')} alt="" /> : null
                     }
                 </div>
             </div>

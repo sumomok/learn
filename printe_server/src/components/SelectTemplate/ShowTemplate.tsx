@@ -8,7 +8,6 @@ interface Iprops {
 export default class ShowTemplate extends PureComponent<Iprops> {
     componentDidMount() {
         this.props.setStep(3);
-        console.log(this.props.htmlcontent);
         // @ts-ignore
         this.refs.iframeContent.contentDocument.write(this.props.htmlcontent);
     }

@@ -9,7 +9,7 @@ interface Iprops {
     location: H.Location<H.LocationState>
     setStep: (value: number) => void
     setFileName: (filename: string) => void
-    setHtmlContent:(htmlcontent:string)=>void
+    setHtmlContent: (htmlcontent: string) => void
 }
 export default class ApplyTemplate extends PureComponent<Iprops> {
     componentDidMount() {
@@ -32,10 +32,13 @@ export default class ApplyTemplate extends PureComponent<Iprops> {
             // @ts-ignore
             menumodelurl: this.props.location.state.menumodelurl
         }
+        // @ts-ignore
+        let TemplateCode = this.props.location.state.m_menucode;
+        // @ts-ignore
+        let TemplateID = this.props.location.state.templateId
         axios.post('http://192.168.10.4:8030/applyTemplate', params).then(res => {
             // @ts-ignore
             let htmlcontent = res.data.Data.htmlData;
-            // 将文件内容下载到本地
             var that = this
             if (process.env.NODE_ENV === 'production') {
                 //@ts-ignore
@@ -48,16 +51,18 @@ export default class ApplyTemplate extends PureComponent<Iprops> {
                         // @ts-ignore
                         that.props.setFileName(res.data.Data.fileName);
                         that.props.setHtmlContent(htmlcontent);
-                        that.props.history.push({ pathname: '/printer/UserInfo/selectTemplate/ShowTemplate', state: { ...this.props.location.state, fileName: res.data.Data.fileName,htmlcontent } })
+                        that.props.history.push({ pathname: '/printer/UserInfo/selectTemplate/ShowTemplate', state: { ...this.props.location.state, fileName: res.data.Data.fileName, htmlcontent } })
                     }
                 });
             }
-            //生产环境下注释
             if (process.env.NODE_ENV === 'development') {
                 that.props.setFileName(res.data.Data.fileName);
                 that.props.setHtmlContent(htmlcontent);
-                that.props.history.push({ pathname: '/printer/UserInfo/selectTemplate/ShowTemplate', state: { ...this.props.location.state, fileName: res.data.Data.fileName,htmlcontent } })
+                that.props.history.push({ pathname: '/printer/UserInfo/selectTemplate/ShowTemplate', state: { ...this.props.location.state, fileName: res.data.Data.fileName, htmlcontent } })
             }
+            window.localStorage.setItem('printNumber', res.data.Data.printNumber);
+            window.localStorage.setItem('TemplateCode',TemplateCode)
+            window.localStorage.setItem('TemplateID',TemplateID)
         }).catch(e => {
             console.log(e);
             message.error('申请模板失败');

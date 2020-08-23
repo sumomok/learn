@@ -18,6 +18,7 @@ export default class printcert extends PureComponent<Iprops> {
         let CarouselArrright: any[] = []
         // @ts-ignore
         this.props.location.state.map((it, index) => {
+            console.log(it);
             if (index % 4 < 4) {
                 CarouselArrleft.push(
                     <Link key={it.m_guid} to={{
@@ -25,7 +26,8 @@ export default class printcert extends PureComponent<Iprops> {
                             templateId: it.m_guid,
                             userCode: this.props.userCode,
                             isElect: it.m_iselectronic ? true : false,
-                            menumodelurl: it.m_menumodelurl
+                            menumodelurl: it.m_menumodelurl,
+                            m_menucode:it.m_menucode
                         }
                     }}><img src={it.m_menuimg} alt="" /></Link>
                 )
@@ -36,7 +38,8 @@ export default class printcert extends PureComponent<Iprops> {
                             templateId: it.m_guid,
                             userCode: this.props.userCode,
                             isElect: it.m_iselectronic ? true : false,
-                            menumodelurl: it.m_menumodelurl
+                            menumodelurl: it.m_menumodelurl,
+                            m_menucode:it.m_menucode
                         }
                     }}><img src={it.m_menuimg} alt="" /></Link>
                 )
