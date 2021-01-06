@@ -17,7 +17,7 @@
     "@types/redux-logger": "^3.0.8",
     "@types/uuid": "^8.0.0",
     "antd": "^4.2.5",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-polyfill": "^6.26.0",
     "hotkeys-js": "^3.8.1",
     "html2canvas": "^1.0.0-rc.5",
