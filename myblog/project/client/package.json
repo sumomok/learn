@@ -11,7 +11,7 @@
     "@types/node": "^13.13.4",
     "core-js": "^3.6.4",
     "element-ui": "^2.13.1",
-    "node-sass": "^4.14.0",
+    "node-sass": "^7.0.0",
     "sass-loader": "^8.0.2",
     "scss-loader": "^0.0.1",
     "vue": "^2.6.11",
