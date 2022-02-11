@@ -22,7 +22,7 @@
     "hotkeys-js": "^3.8.1",
     "html2canvas": "^1.0.0-rc.5",
     "http-proxy-middleware": "^1.0.4",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-countdown-clock": "^2.7.0",
     "react-custom-virtual-keyboard": "^0.0.9",
