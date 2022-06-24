@@ -19,7 +19,7 @@
     "freemarker": "^2.1.0",
     "html2canvas": "^1.0.0-rc.5",
     "html2png": "^1.1.2",
-    "jsdom": "^16.2.2",
+    "jsdom": "^16.5.0",
     "phantom": "^6.3.0",
     "request": "^2.88.2",
     "uuid": "^8.1.0"
